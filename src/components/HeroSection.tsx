@@ -12,7 +12,7 @@ const HeroSection: React.FC<HeroSectionProps> = ({ affiliateCode }) => {
   const scrollToPricing = () => {
     document.getElementById('pricing')?.scrollIntoView({ behavior: 'smooth' });
   };
- 
+
   return (
     <section className="relative bg-gradient-to-br from-blue-600 via-blue-700 to-indigo-800 text-white overflow-hidden">
       {/* Background Pattern */}
@@ -73,8 +73,7 @@ const HeroSection: React.FC<HeroSectionProps> = ({ affiliateCode }) => {
                   className="w-96 h-auto drop-shadow-2xl"
                 />
                 <div className="absolute -top-6 -right-6 bg-yellow-400 text-blue-900 px-6 py-3 rounded-2xl font-bold text-xl shadow-xl">
-                <div className="absolute -top-6 -right-6 bg-yellow-400 text-blue-900 px-6 py-3 rounded-full font-bold text-xl shadow-xl">
-                  Valeur 1 479 €
+                  1 479 €
                 </div>
               </div>
             </div>
