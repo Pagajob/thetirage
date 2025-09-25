@@ -635,7 +635,7 @@ const PromoterPage: React.FC = () => {
         {hasPromoCode && (
           <div className="bg-white p-8 rounded-xl shadow-lg border border-gray-100">
             <div className="flex items-center justify-between mb-6">
-              <div className="flex items-center">
+              <div className="flex items-center"> 
                 <Euro className="h-6 w-6 text-green-600 mr-3" />
                 <h2 className="text-2xl font-bold text-gray-900">Informations bancaires</h2>
               </div>
@@ -648,7 +648,8 @@ const PromoterPage: React.FC = () => {
               </button>
             </div>
             
-            <div className="flex items-start">
+            <div className="bg-blue-50 border border-blue-200 rounded-lg p-4 mb-6">
+              <div className="flex items-start">
                 <div className="bg-blue-600 text-white rounded-full w-6 h-6 flex items-center justify-center text-sm font-bold mr-3 mt-0.5">ℹ</div>
                 <div>
                   <p className="text-blue-800 font-medium mb-1">Paiement des commissions</p>
