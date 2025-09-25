@@ -118,6 +118,9 @@ async function handleEvent(event: Stripe.Event) {
           return;
         }
 
+        // Envoyer l'email de confirmation de participation
+        await sendParticipationConfirmationEmail(checkout_session_id, customerId);
+
         // Traiter la commission d'affiliation si un code promo a été utilisé
         if (discount && discount.promotion_code) {
           await processAffiliateCommission(checkout_session_id, discount.promotion_code, amount_total);
