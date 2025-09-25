@@ -92,7 +92,10 @@ const Footer: React.FC<FooterProps> = ({ affiliateCode }) => {
                 </a>
               </li>
               <li>
-                <a href="mailto:contact@thetirage.com?subject=Support%20Client%20-%20Thetirage&body=Bonjour,%0D%0A%0D%0AJ'ai%20besoin%20d'aide%20concernant%20:%0D%0A%0D%0A" className="hover:text-white transition-colors">
+                <a 
+                  href="mailto:contact@thetirage.com?subject=Support%20Client%20-%20Thetirage&body=Bonjour,%0D%0A%0D%0AJ'ai%20besoin%20d'aide%20concernant%20:%0D%0A%0D%0A" 
+                  className="hover:text-white transition-colors"
+                >
                   {t('footer.support')}
                 </a>
               </li>

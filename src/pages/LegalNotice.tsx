@@ -130,7 +130,7 @@ const LegalNotice: React.FC = () => {
                 <div className="flex items-start">
                   <strong className="text-gray-900 w-32 flex-shrink-0">Site web :</strong>
                   <span className="text-gray-700">
-                    <a href="https://www.o2switch.fr" target="_blank" rel="noopener noreferrer" className="text-orange-600 hover:underline">
+                    <a href="https://thetirage.com" className="text-orange-600 hover:underline" target="_blank" rel="noopener noreferrer">
                       www.o2switch.fr
                     </a>
                   </span>
