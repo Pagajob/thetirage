@@ -2,7 +2,7 @@
          <div className="text-center mb-12">
            <div className="flex justify-center items-center mb-4">
             <img
-              src="/Tirage.svg"
+              src="/the.png"
               alt="Thetirage"
               className="h-12 w-auto mr-4"
             />
