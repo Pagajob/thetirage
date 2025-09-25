@@ -357,7 +357,7 @@ const PromoterPage: React.FC = () => {
             <img
               src="/the.png"
               alt="Thetirage"
-              className="h-30 w-auto"
+              className="h-22 w-auto"
             />
           </div>
           <h1 className="text-4xl font-bold text-gray-900 mb-4">
