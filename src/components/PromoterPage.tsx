@@ -2,8 +2,8 @@
          <div className="text-center mb-12">
            <div className="flex justify-center items-center mb-4">
             <img
-              src="/the.png"
-              alt="the" 
+              src="/Tirage.svg"
+              alt="Thetirage" 
               className="h-12 w-auto mr-4"
             />
             <h1 className="text-4xl font-bold text-gray-900">Espace Promoteur</h1>
