@@ -72,9 +72,9 @@ const HeroSection: React.FC<HeroSectionProps> = ({ affiliateCode }) => {
                   alt="iPhone 17 Pro Max - Prix principal"
                   className="w-96 h-auto drop-shadow-2xl"
                 />
-                <div className="absolute -top-6 -right-6 bg-yellow-400 text-blue-900 px-6 py-3 rounded-2xl font-bold text-xl shadow-xl">
+                <div className="absolute -top-6 -right-6 bg-yellow-400 text-blue-900 px-6 py-3 rounded-full font-bold text-xl shadow-xl">
                 </div>
-                <div className="absolute -top-6 -right-6 bg-yellow-400 text-blue-900 px-6 py-2 rounded-full font-bold text-xl shadow-xl">
+                <div className="absolute -top-6 -right-6 bg-yellow-400 text-blue-900 px-6 py-3 rounded-full font-bold text-xl shadow-xl">
                   Valeur 1 479 €
                 </div>
               </div>
