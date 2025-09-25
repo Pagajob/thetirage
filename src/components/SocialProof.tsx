@@ -18,7 +18,7 @@ const SocialProof: React.FC = () => {
       prize: "Airpods Max",
       month: "Août 2025",
       image: "https://images.pexels.com/photos/220453/pexels-photo-220453.jpeg?w=150&h=150&fit=crop&crop=face",
-      testimonial: "Merci pour les Airpods Max, j'adore l'insonorisation et le son !"
+      testimonial: "Merci pour les Airpods Max, j'aodre l'insonorisation et le son !"
     },
     {
       name: "Sarah M.",

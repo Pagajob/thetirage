@@ -4,9 +4,6 @@ import LandingPage from './pages/LandingPage';
 import PromoterPage from './pages/PromoterPage';
 import SuccessPage from './pages/SuccessPage';
 import GameRules from './pages/GameRules';
-import TermsConditions from './pages/TermsConditions';
-import PrivacyPolicy from './pages/PrivacyPolicy';
-import LegalNotice from './pages/LegalNotice';
 
 function App() {
   return (
@@ -17,9 +14,6 @@ function App() {
         <Route path="/ref/:refCode" element={<LandingPage />} />
         <Route path="/success" element={<SuccessPage />} />
         <Route path="/reglement" element={<GameRules />} />
-        <Route path="/cgu" element={<TermsConditions />} />
-        <Route path="/confidentialite" element={<PrivacyPolicy />} />
-        <Route path="/mentions-legales" element={<LegalNotice />} />
       </Routes>
     </Router>
   );
