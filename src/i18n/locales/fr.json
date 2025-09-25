@@ -30,7 +30,7 @@
     }
   },
   "stats": {
-    "participations": "Participations seulement !",
+    "participations": "Participations déjà !",
     "timeLeft": "Avant la fin des participations",
     "prizeValue": "Valeur du prix principal",
     "hurryUp": "⚡ Dépêche-toi ! Plus que {{days}} jours pour participer",
