@@ -3,8 +3,8 @@
            <div className="flex justify-center items-center mb-4">
             <img
               src="/Tirage.svg"
-              alt="Thetirage" 
-              className="h-26 w-auto mr-4"
+              alt="Thetirage"
+              className="h-12 w-auto mr-4"
             />
             <h1 className="text-4xl font-bold text-gray-900">Espace Promoteur</h1>
            </div>
