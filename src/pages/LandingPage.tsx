@@ -28,6 +28,7 @@ const LandingPage: React.FC = () => {
       <HowItWorks />
       <PricingTable affiliateCode={affiliateCode} />
       <StatsCounter />
+      <PricingTable affiliateCode={affiliateCode} />
       <SocialProof />
       <FAQ />
       <Footer affiliateCode={affiliateCode} />
