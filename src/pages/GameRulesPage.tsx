@@ -160,7 +160,7 @@ const GameRulesPage: React.FC = () => {
             <h3 className="text-lg font-semibold text-blue-900 mb-3">Contact</h3>
             <div className="space-y-2 text-blue-800">
               <p><strong>Organisateur :</strong> PAGAJOB SASU</p>
-              <p><strong>Site web :</strong> <a href="https://thetirage.com" className="text-blue-600 hover:underline">https://thetirage.com</a></p>
+              <p><strong>Site web :</strong> <a href="https://thetirage.com" className=\"text-blue-600 hover:underline">https://thetirage.com</a></p>
               <p><strong>Email :</strong> <a href="mailto:contact@pagajob.com" className="text-blue-600 hover:underline">contact@pagajob.com</a></p>
             </div>
           </div>
