@@ -77,13 +77,18 @@ const Footer: React.FC<FooterProps> = ({ affiliateCode }) => {
                 </a>
               </li>
               <li>
-                <a href="#" className="hover:text-white transition-colors">
+                <a href="/cgu" className="hover:text-white transition-colors">
                   {t('footer.terms')}
                 </a>
               </li>
               <li>
-                <a href="#" className="hover:text-white transition-colors">
+                <a href="/confidentialite" className="hover:text-white transition-colors">
                   {t('footer.privacy')}
+                </a>
+              </li>
+              <li>
+                <a href="/mentions-legales" className="hover:text-white transition-colors">
+                  Mentions légales
                 </a>
               </li>
               <li>
@@ -121,7 +126,15 @@ const Footer: React.FC<FooterProps> = ({ affiliateCode }) => {
         </div>
 
         <div className="border-t border-gray-800 mt-12 pt-8 text-center text-gray-400">
-          <p>{t('footer.copyright')}</p>
+          <div className="space-y-2">
+            <p>{t('footer.copyright')}</p>
+            <p className="text-sm">
+              <strong>PAGAJOB SASU</strong> - SIRET : [À compléter] - 
+              <a href="mailto:contact@thetirage.com" className="hover:text-white transition-colors ml-1">
+                contact@thetirage.com
+              </a>
+            </p>
+          </div>
           <p className="text-sm mt-2">
             {t('footer.gameInfo')}
           </p>

@@ -1,6 +1,6 @@
 import React from 'react';
 import { useTranslation } from 'react-i18next';
-import { ShoppingCart, Mail, Video } from 'lucide-react';
+import { ShoppingCart, Clock, Gift } from 'lucide-react';
 
 const HowItWorks: React.FC = () => {
   const { t } = useTranslation();
@@ -13,13 +13,13 @@ const HowItWorks: React.FC = () => {
       color: "text-blue-600"
     },
     {
-      icon: Mail,
+      icon: Clock,
       title: t('howItWorks.step2.title'),
       description: t('howItWorks.step2.description'),
       color: "text-green-600"
     },
     {
-      icon: Video,
+      icon: Gift,
       title: t('howItWorks.step3.title'),
       description: t('howItWorks.step3.description'),
       color: "text-purple-600"
@@ -45,7 +45,7 @@ const HowItWorks: React.FC = () => {
           </p>
         </div>
 
-        <div className="grid md:grid-cols-3 gap-8">
+        <div className="grid md:grid-cols-3 gap-8 mb-12">
           {steps.map((step, index) => (
             <div key={index} className="text-center group">
               <div className="relative mb-8">
@@ -66,6 +66,22 @@ const HowItWorks: React.FC = () => {
               </p>
             </div>
           ))}
+        </div>
+        
+        {/* CTA Section */}
+        <div className="text-center">
+          <div className="bg-gradient-to-r from-blue-600 to-purple-700 rounded-2xl p-8 text-white">
+            <h3 className="text-2xl font-bold mb-4">Prêt à tenter votre chance ?</h3>
+            <p className="text-blue-100 mb-6">
+              Rejoignez les milliers de participants qui tentent leur chance chaque mois !
+            </p>
+            <button
+              onClick={() => document.getElementById('pricing')?.scrollIntoView({ behavior: 'smooth' })}
+              className="bg-yellow-400 hover:bg-yellow-300 text-blue-900 px-8 py-4 rounded-full font-bold text-lg transition-all transform hover:scale-105"
+            >
+              🎯 Participer maintenant
+            </button>
+          </div>
         </div>
       </div>
     </section>
