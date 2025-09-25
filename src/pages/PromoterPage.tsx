@@ -1,5 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import { useTranslation } from 'react-i18next';
+import { Link } from 'react-router-dom';
 import { 
   Copy, 
   DollarSign, 
@@ -13,7 +14,8 @@ import {
   Calendar,
   Mail, 
   Lock,
-  Euro
+  Euro,
+  ArrowLeft
 } from 'lucide-react';
 import LanguageSelector from '../components/LanguageSelector';
 import { supabase, type PromoterStats } from '../lib/supabase';
@@ -351,6 +353,17 @@ const PromoterPage: React.FC = () => {
     <div className="min-h-screen bg-gradient-to-br from-blue-50 to-indigo-100">
       <LanguageSelector />
       <div className="max-w-6xl mx-auto px-4 py-12">
+        {/* Bouton retour vers le site principal */}
+        <div className="mb-8">
+          <Link
+            to="/"
+            className="inline-flex items-center text-blue-600 hover:text-blue-800 transition-colors font-medium"
+          >
+            <ArrowLeft className="h-5 w-5 mr-2" />
+            Retour sur Thetirage.com
+          </Link>
+        </div>
+
         {/* Header */}
         <div className="text-center mb-12">
           <div className="flex justify-center items-center mb-6">
