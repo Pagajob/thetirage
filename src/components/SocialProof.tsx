@@ -39,13 +39,13 @@ const SocialProof: React.FC = () => {
     {
       name: "Julie P.",
       rating: 5,
-      comment: "Enfin un jeu-concours honnête ! Le tirage en live rassure vraiment sur la transparence 💯",
+      comment: "Enfin un jeu-concours honnête ! J'ai remporté une paire de AirPods 3 💯",
       verified: true
     },
     {
       name: "Kevin R.",
       rating: 5,
-      comment: "J'adore l'idée du live Snapchat, on voit tout en temps réel. Très bien fait !",
+      comment: "J'adore l'idée. Le site est très bien fait et le paiement est facile !",
       verified: true
     }
   ];
