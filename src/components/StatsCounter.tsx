@@ -125,7 +125,7 @@ const StatsCounter: React.FC = () => {
         <div className="text-center mb-12">
           <div className="relative inline-block">
             <img
-              src="/iphone5.png"
+              src="/iphone6.png"
               alt="iPhone"
               className="w-64 h-auto opacity-80 drop-shadow-2xl"
             />
