@@ -54,7 +54,7 @@ const Footer: React.FC<FooterProps> = ({ affiliateCode }) => {
         </div>
 
         {/* Footer Content */}
-        <div className="grid md:grid-cols-3 gap-8 text-center md:text-left">
+        <div className="grid md:grid-cols-2 gap-8 text-center md:text-left">
           <div>
             <div className="flex items-center justify-center md:justify-start mb-4">
               <img
@@ -99,25 +99,6 @@ const Footer: React.FC<FooterProps> = ({ affiliateCode }) => {
             </ul>
           </div>
           
-          <div>
-            <h3 className="text-lg font-semibold mb-4">{t('footer.followUs')}</h3>
-            <div className="space-y-2">
-              <a 
-                href="#" 
-                className="text-gray-400 hover:text-yellow-400 transition-colors flex items-center justify-center md:justify-start"
-              >
-                <ExternalLink className="h-4 w-4 mr-2" />
-                {t('footer.snapchat')}
-              </a>
-              <a 
-                href="#" 
-                className="text-gray-400 hover:text-yellow-400 transition-colors flex items-center justify-center md:justify-start"
-              >
-                <ExternalLink className="h-4 w-4 mr-2" />
-                {t('footer.instagram')}
-              </a>
-            </div>
-          </div>
         </div>
 
         <div className="border-t border-gray-800 mt-12 pt-8 text-center text-gray-400">
