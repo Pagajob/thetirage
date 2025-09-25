@@ -161,7 +161,12 @@ const StatsCounter: React.FC = () => {
           {/* Prize Value */}
           <div className="bg-white bg-opacity-10 backdrop-blur-sm rounded-xl p-8">
             <Trophy className="h-12 w-12 mx-auto mb-4 text-yellow-400" />
-            <div className="text-4xl font-bold mb-2">1 479 €</div>
+            <div className="text-4xl font-bold mb-2">
+              <span className="line-through text-gray-300">1 479 €</span>
+            </div>
+            <div className="text-lg font-semibold text-yellow-400 mb-2">
+              à partir de 5,99€ pour le remporter !
+            </div>
             <p className="text-blue-100">{t('stats.prizeValue')}</p>
           </div>
         </div>
