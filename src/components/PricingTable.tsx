@@ -3,29 +3,32 @@ import { useTranslation } from 'react-i18next';
 
 interface PricingTableProps {
   affiliateCode?: string | null;
+  showHeader?: boolean;
 }
 
-const PricingTable: React.FC<PricingTableProps> = ({ affiliateCode }) => {
+const PricingTable: React.FC<PricingTableProps> = ({ affiliateCode, showHeader = true }) => {
   const { t } = useTranslation();
   
   return (
     <section id="pricing" className="py-20 bg-white">
       <div className="max-w-7xl mx-auto px-4">
-        <div className="text-center mb-16">
-          <h2 className="text-4xl font-bold text-gray-900 mb-4">
-            {t('pricing.title')}
-          </h2>
-          <div className="mb-8">
-            <img
-              src="/iphone3.png"
-              alt="iPhone à gagner" 
-              className="w-72 h-auto mx-auto opacity-90 drop-shadow-xl"
-            />
+        {showHeader && (
+          <div className="text-center mb-16">
+            <h2 className="text-4xl font-bold text-gray-900 mb-4">
+              {t('pricing.title')}
+            </h2>
+            <div className="mb-8">
+              <img
+                src="/iphone3.png"
+                alt="iPhone à gagner" 
+                className="w-72 h-auto mx-auto opacity-90 drop-shadow-xl"
+              />
+            </div>
+            <p className="text-xl text-gray-600 max-w-3xl mx-auto">
+              {t('pricing.subtitle')}
+            </p>
           </div>
-          <p className="text-xl text-gray-600 max-w-3xl mx-auto">
-            {t('pricing.subtitle')}
-          </p>
-        </div>
+        )}
 
         {/* Wrapper large et centré pour forcer le layout desktop */}
 <section className="w-full -mx-4 px-4">
