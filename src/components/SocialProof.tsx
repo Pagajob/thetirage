@@ -9,16 +9,16 @@ const SocialProof: React.FC = () => {
     {
       name: "Marie L.",
       prize: "iPhone 15 Pro",
-      month: "Novembre 2024",
+      month: "Avril 2025",
       image: "https://images.pexels.com/photos/1239291/pexels-photo-1239291.jpeg?w=150&h=150&fit=crop&crop=face",
-      testimonial: "Je n'y croyais pas au début, mais j'ai vraiment gagné ! Livraison ultra rapide 🔥"
+      testimonial: "Je n'y croyais pas au début, mais j'ai vraiment gagné ! L'équipe m'a contacté par téléphone et j'ai recu le colis par La Poste 🔥"
     },
     {
       name: "Thomas K.",
-      prize: "800€ en cash",
-      month: "Octobre 2024",
+      prize: "Airpods Max",
+      month: "Août 2025",
       image: "https://images.pexels.com/photos/220453/pexels-photo-220453.jpeg?w=150&h=150&fit=crop&crop=face",
-      testimonial: "Tirage en live, tout était transparent. J'ai reçu mon virement en 3 jours !"
+      testimonial: "Merci pour les Airpods Max, j'aodre l'insonorisation et le son !"
     },
     {
       name: "Sarah M.",
