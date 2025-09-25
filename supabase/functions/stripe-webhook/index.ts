@@ -349,4 +349,91 @@ async function processAffiliateCommission(checkoutSessionId: string, promotionCo
 
     // Déterminer le taux de commission selon le produit
     switch (priceId) {
-      case 'price_1SBHBREWa5JpT2nEQSe5
+      case 'price_1SBHBREWa5JpT2nEQSe5Jx3e': // Bronze
+        commissionRate = 15; // 15%
+        productName = 'Ticket Bronze';
+        break;
+      case 'price_1SBHCeEWa5JpT2nEJrt20BIh': // Silver
+        commissionRate = 30; // 30%
+        productName = 'Ticket Silver';
+        break;
+      case 'price_1SBHEeEWa5JpT2nEg1K6tDSs': // Gold
+        commissionRate = 35; // 35%
+        productName = 'Ticket Gold';
+        break;
+      default:
+        commissionRate = 15; // Default 15%
+        productName = 'Ticket Thetirage';
+    }
+
+    // Calculer la commission (montant en centimes, convertir en euros)
+    const amountInEuros = amountTotal / 100;
+    const commissionAmount = (amountInEuros * commissionRate) / 100;
+
+    console.log(`Commission calculation: ${amountInEuros}€ * ${commissionRate}% = ${commissionAmount}€`);
+
+    // Récupérer l'email du client
+    const customerEmail = session.customer_details?.email || null;
+
+    // Vérifier si cette vente n'a pas déjà été enregistrée
+    const { data: existingSale, error: checkError } = await supabase
+      .from('affiliate_sales')
+      .select('id')
+      .eq('checkout_session_id', checkoutSessionId)
+      .single();
+
+    if (checkError && checkError.code !== 'PGRST116') {
+      console.error('Error checking existing sale:', checkError);
+      return;
+    }
+
+    if (existingSale) {
+      console.log('Sale already recorded for session:', checkoutSessionId);
+      return;
+    }
+
+    // Enregistrer la vente d'affiliation
+    const { error: saleError } = await supabase
+      .from('affiliate_sales')
+      .insert({
+        promoter_id: promoter.id,
+        checkout_session_id: checkoutSessionId,
+        customer_email: customerEmail,
+        amount: amountInEuros,
+        commission_amount: commissionAmount,
+        product_name: productName
+      });
+
+    if (saleError) {
+      console.error('Error inserting affiliate sale:', saleError);
+      return;
+    }
+
+    console.log('Affiliate sale recorded successfully');
+
+    // Mettre à jour les statistiques du promoteur
+    const newTotalSales = (promoter.total_sales || 0) + 1;
+    const newTotalRevenue = (promoter.total_revenue || 0) + amountInEuros;
+    const newTotalCommission = (promoter.total_commission || 0) + commissionAmount;
+
+    const { error: updateError } = await supabase
+      .from('promoters')
+      .update({
+        total_sales: newTotalSales,
+        total_revenue: newTotalRevenue,
+        total_commission: newTotalCommission,
+        updated_at: new Date().toISOString()
+      })
+      .eq('id', promoter.id);
+
+    if (updateError) {
+      console.error('Error updating promoter stats:', updateError);
+      return;
+    }
+
+    console.log(`Promoter stats updated: ${newTotalSales} sales, ${newTotalRevenue}€ revenue, ${newTotalCommission}€ commission`);
+
+  } catch (error) {
+    console.error('Error in processAffiliateCommission:', error);
+  }
+}
