@@ -25,8 +25,8 @@ const LandingPage: React.FC = () => {
     <div className="min-h-screen bg-white">
       <LanguageSelector />
       <HeroSection affiliateCode={affiliateCode} />
-      <HowItWorks />
       <PricingTable affiliateCode={affiliateCode} />
+      <HowItWorks />
       <StatsCounter />
       <PricingTable affiliateCode={affiliateCode} />
       <SocialProof />
