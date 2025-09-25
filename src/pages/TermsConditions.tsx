@@ -20,7 +20,7 @@ const TermsConditions: React.FC = () => {
           </Link>
           
           <div className="flex items-center mb-4">
-            <p><strong>Site web :</strong> <a href="https://thetirage.com" className=\"text-blue-600 hover:underline" target=\"_blank" rel="noopener noreferrer">https://thetirage.com</a></p>
+            <p><strong>Site web :</strong> <a href="https://thetirage.com" className="text-blue-600 hover:underline" target="_blank" rel="noopener noreferrer">https://thetirage.com</a></p>
             <h1 className="text-4xl font-bold">Conditions Générales d'Utilisation</h1>
           </div>
           <p className="text-xl text-blue-100">Thetirage.com</p>
