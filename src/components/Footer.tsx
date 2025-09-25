@@ -1,6 +1,7 @@
 import React from 'react';
 import { useTranslation } from 'react-i18next';
 import { Calendar, Zap, ExternalLink } from 'lucide-react';
+import GameRulesModal from './GameRulesModal';
 
 interface FooterProps {
   affiliateCode?: string | null;
@@ -8,12 +9,14 @@ interface FooterProps {
 
 const Footer: React.FC<FooterProps> = ({ affiliateCode }) => {
   const { t } = useTranslation();
+  const [showRulesModal, setShowRulesModal] = React.useState(false);
   
   const scrollToPricing = () => {
     document.getElementById('pricing')?.scrollIntoView({ behavior: 'smooth' });
   };
 
   return (
+    <>
     <footer className="bg-gray-900 text-white py-16">
       <div className="max-w-6xl mx-auto px-4">
         {/* Final CTA */}
@@ -72,9 +75,12 @@ const Footer: React.FC<FooterProps> = ({ affiliateCode }) => {
             <h3 className="text-lg font-semibold mb-4">{t('footer.legalInfo')}</h3>
             <ul className="space-y-2 text-gray-400">
               <li>
-                <a href="#" className="hover:text-white transition-colors">
+                <button 
+                  onClick={() => setShowRulesModal(true)}
+                  className="hover:text-white transition-colors text-left"
+                >
                   {t('footer.gameRules')}
-                </a>
+                </button>
               </li>
               <li>
                 <a href="#" className="hover:text-white transition-colors">
@@ -133,6 +139,12 @@ const Footer: React.FC<FooterProps> = ({ affiliateCode }) => {
         </div>
       </div>
     </footer>
+    
+    <GameRulesModal 
+      isOpen={showRulesModal} 
+      onClose={() => setShowRulesModal(false)} 
+    />
+    </>
   );
 };
 
