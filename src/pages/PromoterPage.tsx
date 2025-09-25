@@ -537,7 +537,7 @@ const PromoterPage: React.FC = () => {
             </div>
             <div className="flex items-start">
               <div className="bg-green-600 text-white rounded-full w-6 h-6 flex items-center justify-center text-sm font-bold mr-3 mt-0.5">3</div>
-              <p className="text-gray-700">Vous recevez votre commission sur chaque vente (15% à 35% selon le ticket, paiement sous 7 jours)</p>
+              <p className="text-gray-700">Vous recevez votre commission sur chaque vente (15% à 35% selon le ticket, paiement 48H après le tirage.)</p>
             </div>
           </div>
         </div>
