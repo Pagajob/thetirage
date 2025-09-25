@@ -263,7 +263,7 @@ async function sendParticipationConfirmationEmail(checkoutSessionId: string, cus
           
           <div class="footer">
             <p>© 2025 Thetirage. Tous droits réservés.</p>
-            <p>Jeu autorisé - Participation limitée aux résidents français de plus de 18 ans</p>
+            <p>Jeu autorisé - Participation limitée aux résidents européens de plus de 18 ans</p>
             <p>Si vous avez des questions, contactez-nous à : contact@thetirage.com</p>
           </div>
         </div>
