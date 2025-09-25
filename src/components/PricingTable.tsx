@@ -10,11 +10,11 @@ const PricingTable: React.FC<PricingTableProps> = ({ affiliateCode, showHeader =
   const { t } = useTranslation();
   
   return (
-    <section id="pricing" className="py-20" style={{ backgroundColor: showHeader ? 'white' : '#2848ca' }}>
+    <section id="pricing" className="py-20" style={{ backgroundColor: '#2848ca' }}>
       <div className="max-w-7xl mx-auto px-4">
         {showHeader && (
-          <div className="text-center mb-16 text-gray-900">
-            <h2 className="text-4xl font-bold text-gray-900 mb-4">
+          <div className="text-center mb-16 text-white">
+            <h2 className="text-4xl font-bold text-white mb-4">
               {t('pricing.title')}
             </h2>
             <div className="mb-8">
@@ -24,7 +24,7 @@ const PricingTable: React.FC<PricingTableProps> = ({ affiliateCode, showHeader =
                 className="w-72 h-auto mx-auto opacity-90 drop-shadow-xl"
               />
             </div>
-            <p className="text-xl text-gray-600 max-w-3xl mx-auto">
+            <p className="text-xl text-white text-opacity-90 max-w-3xl mx-auto">
               {t('pricing.subtitle')}
             </p>
           </div>
@@ -59,15 +59,15 @@ const PricingTable: React.FC<PricingTableProps> = ({ affiliateCode, showHeader =
 </section>
 
         <div className="text-center mt-12">
-          <p className={showHeader ? "text-gray-600" : "text-white"}>
+          <p className="text-white">
             {t('pricing.security')}
           </p>
           {affiliateCode && (
-            <div className={`mt-4 p-3 rounded-lg inline-block ${showHeader ? 'bg-green-50 border border-green-200' : 'bg-white bg-opacity-20 border border-white border-opacity-30'}`}>
-              <p className={`text-sm font-medium ${showHeader ? 'text-green-800' : 'text-white'}`}>
+            <div className="mt-4 p-3 rounded-lg inline-block bg-white bg-opacity-20 border border-white border-opacity-30">
+              <p className="text-sm font-medium text-white">
                 🎉 Code promoteur actif: <strong>{affiliateCode}</strong>
               </p>
-              <p className={`text-xs mt-1 ${showHeader ? 'text-green-600' : 'text-white text-opacity-90'}`}>
+              <p className="text-xs mt-1 text-white text-opacity-90">
                 Vous bénéficiez de 10% de réduction sur votre commande !
               </p>
             </div>
