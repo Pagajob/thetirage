@@ -134,6 +134,170 @@ async function handleEvent(event: Stripe.Event) {
   }
 }
 
+async function sendParticipationConfirmationEmail(checkoutSessionId: string, customerId: string) {
+  try {
+    // Récupérer les détails de la session pour obtenir l'email du client
+    const session = await stripe.checkout.sessions.retrieve(checkoutSessionId, {
+      expand: ['line_items.data.price']
+    });
+
+    if (!session.customer_details?.email) {
+      console.error('No customer email found for session:', checkoutSessionId);
+      return;
+    }
+
+    const customerEmail = session.customer_details.email;
+    const customerName = session.customer_details.name || 'Participant';
+    const amountPaid = (session.amount_total || 0) / 100; // Convertir en euros
+    
+    // Déterminer le type de ticket et le nombre de participations
+    let ticketType = 'Ticket';
+    let participations = 1;
+    let bonusText = '';
+    
+    if (session.line_items?.data[0]) {
+      const priceId = session.line_items.data[0].price?.id;
+      switch (priceId) {
+        case 'price_1SBHBREWa5JpT2nEQSe5Jx3e': // Bronze
+          ticketType = 'Ticket Bronze';
+          participations = 1;
+          break;
+        case 'price_1SBHCeEWa5JpT2nEJrt20BIh': // Silver
+          ticketType = 'Ticket Silver';
+          participations = 2;
+          break;
+        case 'price_1SBHEeEWa5JpT2nEg1K6tDSs': // Gold
+          ticketType = 'Ticket Gold';
+          participations = 4;
+          bonusText = ' + 1 participation pour gagner une carte cadeau Boulanger 100€';
+          break;
+      }
+    }
+
+    // Générer un numéro de participation unique basé sur la session
+    const participationNumber = `TT-${checkoutSessionId.slice(-8).toUpperCase()}`;
+
+    // Contenu de l'email de confirmation
+    const emailSubject = `🎉 Confirmation de participation - Thetirage ${new Date().toLocaleDateString('fr-FR', { month: 'long', year: 'numeric' })}`;
+    
+    const emailContent = `
+      <!DOCTYPE html>
+      <html>
+      <head>
+        <meta charset="utf-8">
+        <title>Confirmation de participation - Thetirage</title>
+        <style>
+          body { font-family: Arial, sans-serif; line-height: 1.6; color: #333; }
+          .container { max-width: 600px; margin: 0 auto; padding: 20px; }
+          .header { background: linear-gradient(135deg, #2848ca, #4f46e5); color: white; padding: 30px; text-align: center; border-radius: 10px 10px 0 0; }
+          .content { background: white; padding: 30px; border: 1px solid #e5e7eb; }
+          .footer { background: #f9fafb; padding: 20px; text-align: center; border-radius: 0 0 10px 10px; font-size: 14px; color: #6b7280; }
+          .ticket-info { background: #fef3c7; border: 2px solid #f59e0b; border-radius: 10px; padding: 20px; margin: 20px 0; }
+          .participation-number { background: #dbeafe; border: 2px solid #3b82f6; border-radius: 10px; padding: 15px; margin: 20px 0; text-align: center; }
+          .cta-button { display: inline-block; background: #2848ca; color: white; padding: 15px 30px; text-decoration: none; border-radius: 25px; font-weight: bold; margin: 20px 0; }
+          .highlight { color: #2848ca; font-weight: bold; }
+        </style>
+      </head>
+      <body>
+        <div class="container">
+          <div class="header">
+            <h1>🎉 Félicitations ${customerName} !</h1>
+            <p style="font-size: 18px; margin: 0;">Votre participation est confirmée</p>
+          </div>
+          
+          <div class="content">
+            <p>Bonjour <strong>${customerName}</strong>,</p>
+            
+            <p>Merci pour votre participation au tirage Thetirage ! Votre paiement a été traité avec succès et vous participez maintenant au tirage de ce mois.</p>
+            
+            <div class="ticket-info">
+              <h3>📋 Détails de votre participation</h3>
+              <ul>
+                <li><strong>Ticket :</strong> ${ticketType}</li>
+                <li><strong>Nombre de participations :</strong> ${participations}${bonusText}</li>
+                <li><strong>Montant payé :</strong> ${amountPaid.toFixed(2)}€</li>
+                <li><strong>Date :</strong> ${new Date().toLocaleDateString('fr-FR', { 
+                  weekday: 'long', 
+                  year: 'numeric', 
+                  month: 'long', 
+                  day: 'numeric',
+                  hour: '2-digit',
+                  minute: '2-digit'
+                })}</li>
+              </ul>
+            </div>
+            
+            <div class="participation-number">
+              <h3>🎫 Votre numéro de participation unique</h3>
+              <p style="font-size: 24px; font-weight: bold; color: #2848ca; margin: 10px 0;">${participationNumber}</p>
+              <p style="margin: 0; font-size: 14px;">Conservez précieusement ce numéro</p>
+            </div>
+            
+            <h3>📅 Prochaines étapes</h3>
+            <ul>
+              <li><strong>Tirage au sort :</strong> 31 octobre 2025 à 23h59 (heure de Paris)</li>
+              <li><strong>Annonce du gagnant :</strong> En direct sur nos réseaux sociaux</li>
+              <li><strong>Contact du gagnant :</strong> Dans les 48h suivant le tirage</li>
+            </ul>
+            
+            <p><strong class="highlight">🏆 Prix à gagner ce mois-ci :</strong></p>
+            <ul>
+              <li>iPhone 17 Pro Max (valeur 1 479€)</li>
+              ${bonusText ? '<li>Carte cadeau Boulanger 100€ (tirage bonus pour les tickets Gold)</li>' : ''}
+            </ul>
+            
+            <div style="text-align: center; margin: 30px 0;">
+              <a href="https://thetirage.com" class="cta-button">Visiter Thetirage.com</a>
+            </div>
+            
+            <p><strong>Suivez-nous pour ne rien manquer :</strong></p>
+            <ul>
+              <li>📱 Snapchat : @thetirage</li>
+              <li>📸 Instagram : @thetirage</li>
+            </ul>
+            
+            <p style="margin-top: 30px;">Bonne chance pour le tirage ! 🍀</p>
+            
+            <p>L'équipe Thetirage</p>
+          </div>
+          
+          <div class="footer">
+            <p>© 2025 Thetirage. Tous droits réservés.</p>
+            <p>Jeu autorisé - Participation limitée aux résidents français de plus de 18 ans</p>
+            <p>Si vous avez des questions, contactez-nous à : contact@thetirage.com</p>
+          </div>
+        </div>
+      </body>
+      </html>
+    `;
+
+    // Utiliser l'API Supabase pour envoyer l'email
+    const { error: emailError } = await supabase.functions.invoke('send-email', {
+      body: {
+        to: customerEmail,
+        subject: emailSubject,
+        html: emailContent,
+        metadata: {
+          type: 'participation_confirmation',
+          checkout_session_id: checkoutSessionId,
+          participation_number: participationNumber,
+          ticket_type: ticketType,
+          participations: participations
+        }
+      }
+    });
+
+    if (emailError) {
+      console.error('Error sending confirmation email:', emailError);
+    } else {
+      console.info(`Confirmation email sent to ${customerEmail} for session ${checkoutSessionId}`);
+    }
+
+  } catch (error) {
+    console.error('Error in sendParticipationConfirmationEmail:', error);
+  }
+}
+
 async function processAffiliateCommission(checkoutSessionId: string, promotionCodeId: string, amountTotal: number) {
   try {
     // Récupérer les détails du promotion code depuis Stripe
