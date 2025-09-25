@@ -1,0 +1,52 @@
+import { createClient } from '@supabase/supabase-js';
+
+const supabaseUrl = import.meta.env.VITE_SUPABASE_URL!;
+const supabaseAnonKey = import.meta.env.VITE_SUPABASE_ANON_KEY!;
+
+export const supabase = createClient(supabaseUrl, supabaseAnonKey);
+
+// Types pour le système d'affiliation
+export interface Promoter {
+  id: string;
+  user_id: string;
+  promo_code: string;
+  stripe_promotion_code_id?: string;
+  commission_rate: number;
+  total_commission: number;
+  total_sales: number;
+  total_revenue: number;
+  is_active: boolean;
+  created_at: string;
+  updated_at: string;
+}
+
+export interface AffiliateSale {
+  id: string;
+  promoter_id: string;
+  checkout_session_id: string;
+  customer_email?: string;
+  amount: number;
+  commission_amount: number;
+  product_name?: string;
+  created_at: string;
+}
+
+export interface PromoterStats {
+  promoter: {
+    promo_code: string;
+    commission_rate: number;
+    is_active: boolean;
+    created_at: string;
+  };
+  stats: {
+    total_sales: number;
+    total_revenue: number;
+    total_commission: number;
+    commission_rate: number;
+  };
+  recent_sales: AffiliateSale[];
+  stripe_validation: {
+    usage_count: number;
+    total_amount: number;
+  };
+}

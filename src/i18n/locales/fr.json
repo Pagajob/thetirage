@@ -1,0 +1,130 @@
+{
+  "hero": {
+    "title": "Participe au tirage",
+    "titleHighlight": "du mois 🎁",
+    "subtitle": "1 ticket = 1 chance de gagner un <strong>iPhone 17 Pro Max</strong> ou une <strong>grosse cagnotte 💸</strong>",
+    "cta": "👉 Je prends mon ticket maintenant",
+    "confirmation": "⚡ Confirmation immédiate par email",
+    "sharedBy": "Lien partagé par {{code}}"
+  },
+  "pricing": {
+    "title": "Choisis ton ticket gagnant !",
+    "subtitle": "Plus tu prends de participations, plus tu as de chances de remporter le jackpot",
+    "security": "💳 Paiement 100% sécurisé avec Stripe • 🔒 Données protégées",
+    "affiliateActive": "Code promoteur actif : {{code}}"
+  },
+  "howItWorks": {
+    "title": "Comment ça marche ?",
+    "subtitle": "Participer au jeu-concours est simple comme bonjour !",
+    "step1": {
+      "title": "1. Choisis ton ticket",
+      "description": "Bronze, Silver ou Gold - Plus tu prends, plus tu as de chances de gagner !"
+    },
+    "step2": {
+      "title": "2. Confirmation immédiate",
+      "description": "Reçois ta confirmation par email avec ton numéro de participation unique."
+    },
+    "step3": {
+      "title": "3. Tirage en live",
+      "description": "Découvre le gagnant en direct sur Snapchat - 100% transparent !"
+    }
+  },
+  "stats": {
+    "participations": "Participations ce mois-ci",
+    "timeLeft": "Avant la fin des participations",
+    "prizeValue": "Valeur du prix principal",
+    "hurryUp": "⚡ Dépêche-toi ! Plus que {{days}} jours pour participer",
+    "closed": "🔒 Participations fermées - Tirage en cours",
+    "ended": "Participations terminées",
+    "drawingSoon": "Tirage et contact sous 48h"
+  },
+  "socialProof": {
+    "winnersTitle": "Ils ont déjà gagné ! 🏆",
+    "winnersSubtitle": "Découvre les heureux gagnants des derniers mois",
+    "testimonialsTitle": "Ce que disent nos participants",
+    "verified": "✓ Vérifié",
+    "wonPrize": "🎁 A remporté : {{prize}}"
+  },
+  "faq": {
+    "title": "Questions fréquentes",
+    "subtitle": "Toutes les réponses à tes questions sur notre jeu-concours",
+    "question1": "Comment être sûr que c'est fiable ?",
+    "answer1": "Nous organisons un tirage chaque mois. Le gagnant est directement contacté par téléphone ou par email sous 48h après le tirage. De plus, nous utilisons Stripe pour les paiements, garantissant la sécurité de vos transactions, pensez donc bien à renseigner votre numéro de téléphone et votre email lors du paiement de votre ticket !.",
+    "question2": "Puis-je acheter plusieurs tickets ?",
+    "answer2": "Absolument ! Plus vous achetez de tickets, plus vous multipliez vos chances de gagner. Avec le ticket Gold, vous obtenez 4 participations pour maximiser vos chances. le nombre de participations est illimité",
+    "question3": "Comment je reçois mon lot si je gagne ?",
+    "answer3": "Pour les objets physiques (iPhone, etc.), nous expédions gratuitement sous 48h partout en France. Pour les gains cash, nous effectuons un virement bancaire sous 3-5 jours ouvrés.",
+    "question4": "Que se passe-t-il si personne ne gagne ?",
+    "answer4": "C'est impossible ! Nous tirons toujours un gagnant parmi tous les participants. Si le gagnant ne se manifeste pas sous 7 jours, nous procédons à un nouveau tirage.",
+    "question5": "Y a-t-il des frais cachés ?",
+    "answer5": "Aucun frais caché ! Le prix affiché est le prix final. La livraison est gratuite en France métropolitaine pour tous les lots physiques, si vous résidez à l'etranger, il vous suffira de régler les frais d'envoi internationaux..",
+    "contactTitle": "Une autre question ?",
+    "contactSubtitle": "Notre équipe est là pour t'aider !",
+    "contactButton": "Nous contacter"
+  },
+  "footer": {
+    "lastChance": "Dernière chance !",
+    "deadline": "Participations jusqu'au <strong>31 octobre 2025 à 23h59</strong> (heure de Paris).",
+    "participateNow": "Participer maintenant",
+    "description": "Le jeu-concours 100% transparent qui révolutionne les tirages en ligne. Chaque mois, des gagnants, des vrais !",
+    "legalInfo": "Infos légales",
+    "gameRules": "Règlement du jeu",
+    "terms": "Conditions générales",
+    "privacy": "Politique de confidentialité",
+    "support": "Support client",
+    "followUs": "Nous suivre",
+    "snapchat": "Notre Snapchat",
+    "instagram": "Instagram",
+    "copyright": "© 2025 Thetirage. Tous droits réservés.",
+    "gameInfo": "Jeu autorisé - Participation limitée aux résidents français de plus de 18 ans",
+    "viaPromoter": "Via le promoteur : {{code}}"
+  },
+  "success": {
+    "congratulations": "Félicitations !",
+    "participating": "Tu participes maintenant au tirage !",
+    "ticketValidated": "Ton ticket a été validé avec succès. Tu vas recevoir un email de confirmation avec ton numéro de participation unique dans les prochaines minutes.",
+    "transactionNumber": "Numéro de transaction :",
+    "emailConfirmation": "Email de confirmation",
+    "emailDescription": "Vérifie ta boîte mail (et tes spams) pour ton numéro de participation",
+    "liveDraw": "Tirage en live",
+    "liveDescription": "Suis notre Snapchat pour voir le tirage en direct le 31 octobre",
+    "shareTitle": "Partage et gagne plus !",
+    "shareDescription": "Partage le jeu-concours avec tes amis et augmente tes chances de gagner",
+    "backHome": "Retour à l'accueil",
+    "goodLuck": "Bonne chance pour le tirage ! 🍀"
+  },
+  "promoter": {
+    "title": "Espace Promoteur",
+    "totalSales": "Ventes totales",
+    "totalRevenue": "Chiffre d'affaires",
+    "totalEarnings": "Gains totaux",
+    "generateLink": "Générer votre lien d'affiliation",
+    "promoCode": "Votre code promoteur (unique)",
+    "promoCodePlaceholder": "Ex: ALEX2024",
+    "generateButton": "Générer mon lien d'affiliation",
+    "copy": "Copier",
+    "copied": "Lien copié avec succès !",
+    "codeCreated": "Code promo créé avec succès !",
+    "howItWorksTitle": "💰 Comment ça marche ?",
+    "bronze": "Bronze",
+    "silver": "Silver",
+    "gold": "Gold",
+    "perSale": "par vente",
+    "step1": "Partagez votre lien d'affiliation sur vos réseaux sociaux",
+    "step2": "Vos contacts achètent des tickets via votre lien",
+    "step3": "Vous recevez votre commission variable selon le ticket (15% à 35%, paiement sous 7 jours)",
+    "detailedStats": "Statistiques détaillées",
+    "show": "Afficher",
+    "hide": "Masquer",
+    "salesByTicket": "Ventes par ticket",
+    "detailedCommissions": "Commissions détaillées",
+    "sale": "vente",
+    "sales": "ventes"
+  },
+  "common": {
+    "whatsapp": "WhatsApp",
+    "facebook": "Facebook",
+    "twitter": "Twitter",
+    "email": "Email"
+  }
+}

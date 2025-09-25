@@ -1,0 +1,129 @@
+{
+  "hero": {
+    "title": "Participa en el sorteo",
+    "titleHighlight": "del mes 🎁",
+    "subtitle": "1 ticket = 1 oportunidad de ganar un <strong>iPhone 17 Pro Max</strong> o un <strong>gran premio en efectivo 💸</strong>",
+    "cta": "👉 Consigue mi ticket ahora",
+    "confirmation": "⚡ Confirmación instantánea por email",
+    "sharedBy": "Enlace compartido por {{code}}"
+  },
+  "pricing": {
+    "title": "¡Elige tu ticket ganador!",
+    "subtitle": "Cuantas más participaciones tengas, mejores serán tus posibilidades de ganar el premio mayor",
+    "security": "💳 Pago 100% seguro con Stripe • 🔒 Datos protegidos",
+    "affiliateActive": "Código de promotor activo: {{code}}"
+  },
+  "howItWorks": {
+    "title": "¿Cómo funciona?",
+    "subtitle": "¡Participar en el concurso es muy fácil!",
+    "step1": {
+      "title": "1. Elige tu ticket",
+      "description": "Bronce, Plata u Oro - ¡Cuanto más tomes, mejores serán tus posibilidades!"
+    },
+    "step2": {
+      "title": "2. Confirmación instantánea",
+      "description": "Recibe tu confirmación por email con tu número de participación único."
+    },
+    "step3": {
+      "title": "3. Sorteo en vivo",
+      "description": "¡Descubre al ganador en vivo en Snapchat - 100% transparente!"
+    }
+  },
+  "stats": {
+    "participations": "Participaciones este mes",
+    "timeLeft": "Hasta el cierre de participaciones",
+    "prizeValue": "Valor del premio principal",
+    "hurryUp": "⚡ ¡Date prisa! Solo quedan {{days}} días para participar",
+    "closed": "🔒 Participaciones cerradas - Sorteo en progreso",
+    "ended": "Participaciones terminadas",
+    "drawingSoon": "Sorteo y contacto en 48h"
+  },
+  "socialProof": {
+    "winnersTitle": "¡Ya han ganado! 🏆",
+    "winnersSubtitle": "Conoce a los afortunados ganadores de los últimos meses",
+    "testimonialsTitle": "Lo que dicen nuestros participantes",
+    "verified": "✓ Verificado",
+    "wonPrize": "🎁 Ganó: {{prize}}"
+  },
+  "faq": {
+    "title": "Preguntas Frecuentes",
+    "subtitle": "Todas las respuestas a tus preguntas sobre nuestro concurso",
+    "question1": "¿Cómo puedo estar seguro de que es confiable?",
+    "answer1": "Organizamos un sorteo cada mes. El ganador es contactado directamente por teléfono o email dentro de las 48h después del sorteo. Además, usamos Stripe para los pagos, garantizando la seguridad de tus transacciones. ¡Asegúrate de proporcionar tu número de teléfono y email al comprar tu ticket!",
+    "question2": "¿Puedo comprar múltiples tickets?",
+    "answer2": "¡Absolutamente! Cuantos más tickets compres, más multiplicas tus posibilidades de ganar. Con el ticket Oro, obtienes 4 participaciones para maximizar tus posibilidades. El número de participaciones es ilimitado.",
+    "question3": "¿Cómo recibo mi premio si gano?",
+    "answer3": "Para artículos físicos (iPhone, etc.), enviamos gratis en 48h por toda Francia. Para premios en efectivo, hacemos una transferencia bancaria en 3-5 días hábiles.",
+    "question4": "¿Qué pasa si nadie gana?",
+    "answer4": "¡Eso es imposible! Siempre sorteamos un ganador entre todos los participantes. Si el ganador no responde en 7 días, procedemos con un nuevo sorteo.",
+    "question5": "¿Hay tarifas ocultas?",
+    "answer5": "¡Sin tarifas ocultas! El precio mostrado es el precio final. La entrega es gratuita en Francia continental para todos los premios físicos. Si vives en el extranjero, solo necesitarás pagar los costos de envío internacional.",
+    "contactTitle": "¿Otra pregunta?",
+    "contactSubtitle": "¡Nuestro equipo está aquí para ayudar!",
+    "contactButton": "Contáctanos"
+  },
+  "footer": {
+    "lastChance": "¡Última oportunidad!",
+    "deadline": "Participaciones hasta el <strong>31 de octubre de 2025 a las 23:59</strong> (hora de París).",
+    "participateNow": "Participar ahora",
+    "description": "El concurso 100% transparente que revoluciona los sorteos online. ¡Cada mes, ganadores reales!",
+    "legalInfo": "Info Legal",
+    "gameRules": "Reglas del Juego",
+    "terms": "Términos y Condiciones",
+    "privacy": "Política de Privacidad",
+    "support": "Soporte al Cliente",
+    "followUs": "Síguenos",
+    "snapchat": "Nuestro Snapchat",
+    "instagram": "Instagram",
+    "copyright": "© 2025 Thetirage. Todos los derechos reservados.",
+    "gameInfo": "Juego autorizado - Participación limitada a residentes franceses mayores de 18",
+    "viaPromoter": "Vía promotor: {{code}}"
+  },
+  "success": {
+    "congratulations": "¡Felicitaciones!",
+    "participating": "¡Ahora estás participando en el sorteo!",
+    "ticketValidated": "Tu ticket ha sido validado exitosamente. Recibirás un email de confirmación con tu número de participación único en los próximos minutos.",
+    "transactionNumber": "Número de transacción:",
+    "emailConfirmation": "Confirmación por email",
+    "emailDescription": "Revisa tu buzón (y spam) para tu número de participación",
+    "liveDraw": "Sorteo en vivo",
+    "liveDescription": "Sigue nuestro Snapchat para ver el sorteo en vivo el 31 de octubre",
+    "shareTitle": "¡Comparte y gana más!",
+    "shareDescription": "Comparte el concurso con tus amigos y aumenta tus posibilidades de ganar",
+    "backHome": "Volver al inicio",
+    "goodLuck": "¡Buena suerte en el sorteo! 🍀"
+  },
+  "promoter": {
+    "title": "Espacio del Promotor",
+    "averageCommission": "Comisión promedio",
+    "yourConversions": "Tus conversiones",
+    "totalEarnings": "Ganancias totales",
+    "generateLink": "Genera tu enlace de afiliado",
+    "promoCode": "Tu código de promotor (único)",
+    "promoCodePlaceholder": "Ej: ALEX2024",
+    "generateButton": "Generar mi enlace de afiliado",
+    "copy": "Copiar",
+    "copied": "¡Enlace copiado exitosamente!",
+    "howItWorksTitle": "💰 ¿Cómo funciona?",
+    "bronze": "Bronce",
+    "silver": "Plata",
+    "gold": "Oro",
+    "perSale": "por venta",
+    "step1": "Comparte tu enlace de afiliado en tus redes sociales",
+    "step2": "Tus contactos compran tickets a través de tu enlace",
+    "step3": "Recibes tu comisión en cada venta (15% a 35% según el ticket, pago en 7 días)",
+    "detailedStats": "Estadísticas detalladas",
+    "show": "Mostrar",
+    "hide": "Ocultar",
+    "salesByTicket": "Ventas por ticket",
+    "detailedCommissions": "Comisiones detalladas",
+    "sale": "venta",
+    "sales": "ventas"
+  },
+  "common": {
+    "whatsapp": "WhatsApp",
+    "facebook": "Facebook",
+    "twitter": "Twitter",
+    "email": "Email"
+  }
+}

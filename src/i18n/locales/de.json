@@ -1,0 +1,129 @@
+{
+  "hero": {
+    "title": "Nimm am monatlichen",
+    "titleHighlight": "Gewinnspiel teil 🎁",
+    "subtitle": "1 Ticket = 1 Chance, ein <strong>iPhone 17 Pro Max</strong> oder einen <strong>großen Geldpreis 💸</strong> zu gewinnen",
+    "cta": "👉 Jetzt mein Ticket holen",
+    "confirmation": "⚡ Sofortige E-Mail-Bestätigung",
+    "sharedBy": "Link geteilt von {{code}}"
+  },
+  "pricing": {
+    "title": "Wähle dein Gewinnticket!",
+    "subtitle": "Je mehr Teilnahmen du hast, desto besser sind deine Chancen auf den Jackpot",
+    "security": "💳 100% sichere Zahlung mit Stripe • 🔒 Geschützte Daten",
+    "affiliateActive": "Aktiver Promoter-Code: {{code}}"
+  },
+  "howItWorks": {
+    "title": "Wie funktioniert es?",
+    "subtitle": "Die Teilnahme am Gewinnspiel ist kinderleicht!",
+    "step1": {
+      "title": "1. Wähle dein Ticket",
+      "description": "Bronze, Silber oder Gold - Je mehr du nimmst, desto besser deine Chancen!"
+    },
+    "step2": {
+      "title": "2. Sofortige Bestätigung",
+      "description": "Erhalte deine Bestätigung per E-Mail mit deiner einzigartigen Teilnahmenummer."
+    },
+    "step3": {
+      "title": "3. Live-Ziehung",
+      "description": "Entdecke den Gewinner live auf Snapchat - 100% transparent!"
+    }
+  },
+  "stats": {
+    "participations": "Teilnahmen diesen Monat",
+    "timeLeft": "Bis zum Ende der Teilnahmen",
+    "prizeValue": "Hauptpreis-Wert",
+    "hurryUp": "⚡ Beeil dich! Nur noch {{days}} Tage zur Teilnahme",
+    "closed": "🔒 Teilnahmen geschlossen - Ziehung läuft",
+    "ended": "Teilnahmen beendet",
+    "drawingSoon": "Ziehung und Kontakt innerhalb von 48h"
+  },
+  "socialProof": {
+    "winnersTitle": "Sie haben bereits gewonnen! 🏆",
+    "winnersSubtitle": "Lerne die glücklichen Gewinner der letzten Monate kennen",
+    "testimonialsTitle": "Was unsere Teilnehmer sagen",
+    "verified": "✓ Verifiziert",
+    "wonPrize": "🎁 Gewonnen: {{prize}}"
+  },
+  "faq": {
+    "title": "Häufig gestellte Fragen",
+    "subtitle": "Alle Antworten auf deine Fragen zu unserem Gewinnspiel",
+    "question1": "Wie kann ich sicher sein, dass es zuverlässig ist?",
+    "answer1": "Wir organisieren jeden Monat eine Ziehung. Der Gewinner wird innerhalb von 48h nach der Ziehung direkt per Telefon oder E-Mail kontaktiert. Außerdem verwenden wir Stripe für Zahlungen, was die Sicherheit deiner Transaktionen garantiert. Denke daran, deine Telefonnummer und E-Mail beim Ticketkauf anzugeben!",
+    "question2": "Kann ich mehrere Tickets kaufen?",
+    "answer2": "Absolut! Je mehr Tickets du kaufst, desto mehr vervielfachst du deine Gewinnchancen. Mit dem Gold-Ticket erhältst du 4 Teilnahmen, um deine Chancen zu maximieren. Die Anzahl der Teilnahmen ist unbegrenzt.",
+    "question3": "Wie erhalte ich meinen Preis, wenn ich gewinne?",
+    "answer3": "Für physische Gegenstände (iPhone, etc.) versenden wir kostenlos innerhalb von 48h in ganz Frankreich. Für Geldpreise führen wir eine Banküberweisung innerhalb von 3-5 Werktagen durch.",
+    "question4": "Was passiert, wenn niemand gewinnt?",
+    "answer4": "Das ist unmöglich! Wir ziehen immer einen Gewinner unter allen Teilnehmern. Wenn sich der Gewinner nicht innerhalb von 7 Tagen meldet, führen wir eine neue Ziehung durch.",
+    "question5": "Gibt es versteckte Gebühren?",
+    "answer5": "Keine versteckten Gebühren! Der angezeigte Preis ist der Endpreis. Die Lieferung ist kostenlos in Frankreich für alle physischen Preise. Wenn du im Ausland lebst, musst du nur die internationalen Versandkosten bezahlen.",
+    "contactTitle": "Noch eine Frage?",
+    "contactSubtitle": "Unser Team ist da, um zu helfen!",
+    "contactButton": "Kontaktiere uns"
+  },
+  "footer": {
+    "lastChance": "Letzte Chance!",
+    "deadline": "Teilnahmen bis zum <strong>31. Oktober 2025 um 23:59 Uhr</strong> (Pariser Zeit).",
+    "participateNow": "Jetzt teilnehmen",
+    "description": "Das 100% transparente Gewinnspiel, das Online-Ziehungen revolutioniert. Jeden Monat echte Gewinner!",
+    "legalInfo": "Rechtliche Infos",
+    "gameRules": "Spielregeln",
+    "terms": "Allgemeine Geschäftsbedingungen",
+    "privacy": "Datenschutzrichtlinie",
+    "support": "Kundensupport",
+    "followUs": "Folge uns",
+    "snapchat": "Unser Snapchat",
+    "instagram": "Instagram",
+    "copyright": "© 2025 Thetirage. Alle Rechte vorbehalten.",
+    "gameInfo": "Autorisiertes Spiel - Teilnahme beschränkt auf französische Einwohner über 18",
+    "viaPromoter": "Über Promoter: {{code}}"
+  },
+  "success": {
+    "congratulations": "Herzlichen Glückwunsch!",
+    "participating": "Du nimmst jetzt an der Ziehung teil!",
+    "ticketValidated": "Dein Ticket wurde erfolgreich validiert. Du wirst in den nächsten Minuten eine Bestätigungs-E-Mail mit deiner einzigartigen Teilnahmenummer erhalten.",
+    "transactionNumber": "Transaktionsnummer:",
+    "emailConfirmation": "E-Mail-Bestätigung",
+    "emailDescription": "Überprüfe dein Postfach (und Spam) für deine Teilnahmenummer",
+    "liveDraw": "Live-Ziehung",
+    "liveDescription": "Folge unserem Snapchat, um die Live-Ziehung am 31. Oktober zu sehen",
+    "shareTitle": "Teile und gewinne mehr!",
+    "shareDescription": "Teile das Gewinnspiel mit deinen Freunden und erhöhe deine Gewinnchancen",
+    "backHome": "Zurück zur Startseite",
+    "goodLuck": "Viel Glück bei der Ziehung! 🍀"
+  },
+  "promoter": {
+    "title": "Promoter-Bereich",
+    "averageCommission": "Durchschnittliche Provision",
+    "yourConversions": "Deine Conversions",
+    "totalEarnings": "Gesamteinnahmen",
+    "generateLink": "Generiere deinen Affiliate-Link",
+    "promoCode": "Dein Promoter-Code (einzigartig)",
+    "promoCodePlaceholder": "Z.B.: ALEX2024",
+    "generateButton": "Meinen Affiliate-Link generieren",
+    "copy": "Kopieren",
+    "copied": "Link erfolgreich kopiert!",
+    "howItWorksTitle": "💰 Wie funktioniert es?",
+    "bronze": "Bronze",
+    "silver": "Silber",
+    "gold": "Gold",
+    "perSale": "pro Verkauf",
+    "step1": "Teile deinen Affiliate-Link in deinen sozialen Netzwerken",
+    "step2": "Deine Kontakte kaufen Tickets über deinen Link",
+    "step3": "Du erhältst deine Provision bei jedem Verkauf (15% bis 35% je nach Ticket, Zahlung innerhalb von 7 Tagen)",
+    "detailedStats": "Detaillierte Statistiken",
+    "show": "Anzeigen",
+    "hide": "Verbergen",
+    "salesByTicket": "Verkäufe nach Ticket",
+    "detailedCommissions": "Detaillierte Provisionen",
+    "sale": "Verkauf",
+    "sales": "Verkäufe"
+  },
+  "common": {
+    "whatsapp": "WhatsApp",
+    "facebook": "Facebook",
+    "twitter": "Twitter",
+    "email": "E-Mail"
+  }
+}

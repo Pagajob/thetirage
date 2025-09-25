@@ -1,0 +1,130 @@
+{
+  "hero": {
+    "title": "Join the monthly",
+    "titleHighlight": "giveaway 🎁",
+    "subtitle": "1 ticket = 1 chance to win an <strong>iPhone 17 Pro Max</strong> or a <strong>big cash prize 💸</strong>",
+    "cta": "👉 Get my ticket now",
+    "confirmation": "⚡ Instant email confirmation",
+    "sharedBy": "Link shared by {{code}}"
+  },
+  "pricing": {
+    "title": "Choose your winning ticket!",
+    "subtitle": "The more entries you have, the better your chances of winning the jackpot",
+    "security": "💳 100% secure payment with Stripe • 🔒 Protected data",
+    "affiliateActive": "Active promoter code: {{code}}"
+  },
+  "howItWorks": {
+    "title": "How does it work?",
+    "subtitle": "Participating in the contest is as easy as pie!",
+    "step1": {
+      "title": "1. Choose your ticket",
+      "description": "Bronze, Silver or Gold - The more you take, the better your chances!"
+    },
+    "step2": {
+      "title": "2. Instant confirmation",
+      "description": "Receive your confirmation by email with your unique participation number."
+    },
+    "step3": {
+      "title": "3. Live draw",
+      "description": "Discover the winner live on Snapchat - 100% transparent!"
+    }
+  },
+  "stats": {
+    "participations": "Entries this month",
+    "timeLeft": "Until entries close",
+    "prizeValue": "Main prize value",
+    "hurryUp": "⚡ Hurry up! Only {{days}} days left to participate",
+    "closed": "🔒 Entries closed - Draw in progress",
+    "ended": "Entries ended",
+    "drawingSoon": "Draw and contact within 48h"
+  },
+  "socialProof": {
+    "winnersTitle": "They already won! 🏆",
+    "winnersSubtitle": "Meet the lucky winners from recent months",
+    "testimonialsTitle": "What our participants say",
+    "verified": "✓ Verified",
+    "wonPrize": "🎁 Won: {{prize}}"
+  },
+  "faq": {
+    "title": "Frequently Asked Questions",
+    "subtitle": "All the answers to your questions about our contest",
+    "question1": "How can I be sure it's reliable?",
+    "answer1": "We organize a draw every month. The winner is directly contacted by phone or email within 48h after the draw. Plus, we use Stripe for payments, guaranteeing the security of your transactions. Make sure to provide your phone number and email when purchasing your ticket!",
+    "question2": "Can I buy multiple tickets?",
+    "answer2": "Absolutely! The more tickets you buy, the more you multiply your chances of winning. With the Gold ticket, you get 4 entries to maximize your chances. The number of entries is unlimited.",
+    "question3": "How do I receive my prize if I win?",
+    "answer3": "For physical items (iPhone, etc.), we ship for free within 48h throughout France. For cash prizes, we make a bank transfer within 3-5 business days.",
+    "question4": "What happens if no one wins?",
+    "answer4": "That's impossible! We always draw a winner among all participants. If the winner doesn't respond within 7 days, we proceed with a new draw.",
+    "question5": "Are there any hidden fees?",
+    "answer5": "No hidden fees! The displayed price is the final price. Delivery is free in mainland France for all physical prizes. If you live abroad, you'll just need to pay international shipping costs.",
+    "contactTitle": "Another question?",
+    "contactSubtitle": "Our team is here to help!",
+    "contactButton": "Contact us"
+  },
+  "footer": {
+    "lastChance": "Last chance!",
+    "deadline": "Entries until <strong>October 31, 2025 at 11:59 PM</strong> (Paris time).",
+    "participateNow": "Participate now",
+    "description": "The 100% transparent contest that revolutionizes online draws. Every month, real winners!",
+    "legalInfo": "Legal Info",
+    "gameRules": "Game Rules",
+    "terms": "Terms & Conditions",
+    "privacy": "Privacy Policy",
+    "support": "Customer Support",
+    "followUs": "Follow Us",
+    "snapchat": "Our Snapchat",
+    "instagram": "Instagram",
+    "copyright": "© 2025 Thetirage. All rights reserved.",
+    "gameInfo": "Authorized game - Participation limited to French residents over 18",
+    "viaPromoter": "Via promoter: {{code}}"
+  },
+  "success": {
+    "congratulations": "Congratulations!",
+    "participating": "You're now participating in the draw!",
+    "ticketValidated": "Your ticket has been successfully validated. You will receive a confirmation email with your unique participation number in the next few minutes.",
+    "transactionNumber": "Transaction number:",
+    "emailConfirmation": "Email confirmation",
+    "emailDescription": "Check your mailbox (and spam) for your participation number",
+    "liveDraw": "Live draw",
+    "liveDescription": "Follow our Snapchat to see the live draw on October 31",
+    "shareTitle": "Share and win more!",
+    "shareDescription": "Share the contest with your friends and increase your chances of winning",
+    "backHome": "Back to home",
+    "goodLuck": "Good luck for the draw! 🍀"
+  },
+  "promoter": {
+    "title": "Promoter Space",
+    "totalSales": "Total sales",
+    "totalRevenue": "Total revenue",
+    "totalEarnings": "Total earnings",
+    "generateLink": "Generate your affiliate link",
+    "promoCode": "Your promoter code (unique)",
+    "promoCodePlaceholder": "Ex: ALEX2024",
+    "generateButton": "Generate my affiliate link",
+    "copy": "Copy",
+    "copied": "Link copied successfully!",
+    "codeCreated": "Promo code created successfully!",
+    "howItWorksTitle": "💰 How does it work?",
+    "bronze": "Bronze",
+    "silver": "Silver",
+    "gold": "Gold",
+    "perSale": "per sale",
+    "step1": "Share your affiliate link on your social networks",
+    "step2": "Your contacts buy tickets via your link",
+    "step3": "You receive variable commission per ticket (15% to 35%, payment within 7 days)",
+    "detailedStats": "Detailed statistics",
+    "show": "Show",
+    "hide": "Hide",
+    "salesByTicket": "Sales by ticket",
+    "detailedCommissions": "Detailed commissions",
+    "sale": "sale",
+    "sales": "sales"
+  },
+  "common": {
+    "whatsapp": "WhatsApp",
+    "facebook": "Facebook",
+    "twitter": "Twitter",
+    "email": "Email"
+  }
+}

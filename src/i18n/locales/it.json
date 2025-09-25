@@ -1,0 +1,129 @@
+{
+  "hero": {
+    "title": "Partecipa all'estrazione",
+    "titleHighlight": "del mese 🎁",
+    "subtitle": "1 biglietto = 1 possibilità di vincere un <strong>iPhone 17 Pro Max</strong> o un <strong>grande premio in denaro 💸</strong>",
+    "cta": "👉 Prendi il mio biglietto ora",
+    "confirmation": "⚡ Conferma istantanea via email",
+    "sharedBy": "Link condiviso da {{code}}"
+  },
+  "pricing": {
+    "title": "Scegli il tuo biglietto vincente!",
+    "subtitle": "Più partecipazioni hai, migliori sono le tue possibilità di vincere il jackpot",
+    "security": "💳 Pagamento 100% sicuro con Stripe • 🔒 Dati protetti",
+    "affiliateActive": "Codice promotore attivo: {{code}}"
+  },
+  "howItWorks": {
+    "title": "Come funziona?",
+    "subtitle": "Partecipare al concorso è facilissimo!",
+    "step1": {
+      "title": "1. Scegli il tuo biglietto",
+      "description": "Bronzo, Argento o Oro - Più ne prendi, migliori sono le tue possibilità!"
+    },
+    "step2": {
+      "title": "2. Conferma istantanea",
+      "description": "Ricevi la tua conferma via email con il tuo numero di partecipazione unico."
+    },
+    "step3": {
+      "title": "3. Estrazione dal vivo",
+      "description": "Scopri il vincitore dal vivo su Snapchat - 100% trasparente!"
+    }
+  },
+  "stats": {
+    "participations": "Partecipazioni questo mese",
+    "timeLeft": "Fino alla chiusura delle partecipazioni",
+    "prizeValue": "Valore del premio principale",
+    "hurryUp": "⚡ Sbrigati! Solo {{days}} giorni rimasti per partecipare",
+    "closed": "🔒 Partecipazioni chiuse - Estrazione in corso",
+    "ended": "Partecipazioni terminate",
+    "drawingSoon": "Estrazione e contatto entro 48h"
+  },
+  "socialProof": {
+    "winnersTitle": "Hanno già vinto! 🏆",
+    "winnersSubtitle": "Incontra i fortunati vincitori degli ultimi mesi",
+    "testimonialsTitle": "Cosa dicono i nostri partecipanti",
+    "verified": "✓ Verificato",
+    "wonPrize": "🎁 Ha vinto: {{prize}}"
+  },
+  "faq": {
+    "title": "Domande Frequenti",
+    "subtitle": "Tutte le risposte alle tue domande sul nostro concorso",
+    "question1": "Come posso essere sicuro che sia affidabile?",
+    "answer1": "Organizziamo un'estrazione ogni mese. Il vincitore viene contattato direttamente per telefono o email entro 48h dall'estrazione. Inoltre, usiamo Stripe per i pagamenti, garantendo la sicurezza delle tue transazioni. Assicurati di fornire il tuo numero di telefono ed email quando acquisti il biglietto!",
+    "question2": "Posso comprare più biglietti?",
+    "answer2": "Assolutamente! Più biglietti compri, più moltiplichi le tue possibilità di vincere. Con il biglietto Oro, ottieni 4 partecipazioni per massimizzare le tue possibilità. Il numero di partecipazioni è illimitato.",
+    "question3": "Come ricevo il mio premio se vinco?",
+    "answer3": "Per oggetti fisici (iPhone, ecc.), spediamo gratuitamente entro 48h in tutta la Francia. Per premi in denaro, effettuiamo un bonifico bancario entro 3-5 giorni lavorativi.",
+    "question4": "Cosa succede se nessuno vince?",
+    "answer4": "È impossibile! Estraiamo sempre un vincitore tra tutti i partecipanti. Se il vincitore non risponde entro 7 giorni, procediamo con una nuova estrazione.",
+    "question5": "Ci sono costi nascosti?",
+    "answer5": "Nessun costo nascosto! Il prezzo mostrato è il prezzo finale. La consegna è gratuita in Francia continentale per tutti i premi fisici. Se vivi all'estero, dovrai solo pagare i costi di spedizione internazionale.",
+    "contactTitle": "Un'altra domanda?",
+    "contactSubtitle": "Il nostro team è qui per aiutare!",
+    "contactButton": "Contattaci"
+  },
+  "footer": {
+    "lastChance": "Ultima possibilità!",
+    "deadline": "Partecipazioni fino al <strong>31 ottobre 2025 alle 23:59</strong> (ora di Parigi).",
+    "participateNow": "Partecipa ora",
+    "description": "Il concorso 100% trasparente che rivoluziona le estrazioni online. Ogni mese, vincitori veri!",
+    "legalInfo": "Info Legali",
+    "gameRules": "Regole del Gioco",
+    "terms": "Termini e Condizioni",
+    "privacy": "Politica sulla Privacy",
+    "support": "Supporto Clienti",
+    "followUs": "Seguici",
+    "snapchat": "Il nostro Snapchat",
+    "instagram": "Instagram",
+    "copyright": "© 2025 Thetirage. Tutti i diritti riservati.",
+    "gameInfo": "Gioco autorizzato - Partecipazione limitata ai residenti francesi maggiori di 18 anni",
+    "viaPromoter": "Tramite promotore: {{code}}"
+  },
+  "success": {
+    "congratulations": "Congratulazioni!",
+    "participating": "Ora stai partecipando all'estrazione!",
+    "ticketValidated": "Il tuo biglietto è stato validato con successo. Riceverai un'email di conferma con il tuo numero di partecipazione unico nei prossimi minuti.",
+    "transactionNumber": "Numero di transazione:",
+    "emailConfirmation": "Conferma email",
+    "emailDescription": "Controlla la tua casella di posta (e spam) per il tuo numero di partecipazione",
+    "liveDraw": "Estrazione dal vivo",
+    "liveDescription": "Segui il nostro Snapchat per vedere l'estrazione dal vivo il 31 ottobre",
+    "shareTitle": "Condividi e vinci di più!",
+    "shareDescription": "Condividi il concorso con i tuoi amici e aumenta le tue possibilità di vincere",
+    "backHome": "Torna alla home",
+    "goodLuck": "Buona fortuna per l'estrazione! 🍀"
+  },
+  "promoter": {
+    "title": "Area Promotore",
+    "averageCommission": "Commissione media",
+    "yourConversions": "Le tue conversioni",
+    "totalEarnings": "Guadagni totali",
+    "generateLink": "Genera il tuo link di affiliazione",
+    "promoCode": "Il tuo codice promotore (unico)",
+    "promoCodePlaceholder": "Es: ALEX2024",
+    "generateButton": "Genera il mio link di affiliazione",
+    "copy": "Copia",
+    "copied": "Link copiato con successo!",
+    "howItWorksTitle": "💰 Come funziona?",
+    "bronze": "Bronzo",
+    "silver": "Argento",
+    "gold": "Oro",
+    "perSale": "per vendita",
+    "step1": "Condividi il tuo link di affiliazione sui tuoi social network",
+    "step2": "I tuoi contatti comprano biglietti tramite il tuo link",
+    "step3": "Ricevi la tua commissione su ogni vendita (15% al 35% a seconda del biglietto, pagamento entro 7 giorni)",
+    "detailedStats": "Statistiche dettagliate",
+    "show": "Mostra",
+    "hide": "Nascondi",
+    "salesByTicket": "Vendite per biglietto",
+    "detailedCommissions": "Commissioni dettagliate",
+    "sale": "vendita",
+    "sales": "vendite"
+  },
+  "common": {
+    "whatsapp": "WhatsApp",
+    "facebook": "Facebook",
+    "twitter": "Twitter",
+    "email": "Email"
+  }
+}
