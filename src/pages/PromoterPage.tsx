@@ -274,7 +274,7 @@ const PromoterPage: React.FC = () => {
               >
                 <Lock className="h-5 w-5 mr-2" />
                 Se connecter / S'inscrire
-              </button>
+                <a href="mailto:contact@thetirage.com" className="text-blue-600 hover:underline ml-1">
               <p className="text-sm text-gray-500 text-center">
                 Créez votre compte pour générer vos liens d'affiliation
               </p>
