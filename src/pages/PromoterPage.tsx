@@ -648,8 +648,7 @@ const PromoterPage: React.FC = () => {
               </button>
             </div>
             
-            <div className="bg-blue-50 border border-blue-200 rounded-lg p-4 mb-6">
-              <div className="flex items-start">
+            <div className="flex items-start">
                 <div className="bg-blue-600 text-white rounded-full w-6 h-6 flex items-center justify-center text-sm font-bold mr-3 mt-0.5">ℹ</div>
                 <div>
                   <p className="text-blue-800 font-medium mb-1">Paiement des commissions</p>
