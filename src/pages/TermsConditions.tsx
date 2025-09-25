@@ -188,7 +188,7 @@ const TermsConditions: React.FC = () => {
             <h2 className="text-xl font-bold text-gray-900 mb-4">Contact</h2>
             <div className="space-y-2 text-gray-700">
               <p><strong>Société :</strong> PAGAJOB SASU</p>
-              <p><strong>Site web :</strong> <a href="https://thetirage.com" className="text-blue-600 hover:underline" target="_blank" rel="noopener noreferrer">https://thetirage.com</a></p>
+              <p><strong>Site web :</strong> <a href="https://thetirage.com" className=\"text-blue-600 hover:underline" target=\"_blank" rel="noopener noreferrer">https://thetirage.com</a></p>
               <p><strong>Email :</strong> <a href="mailto:contact@thetirage.com" className="text-blue-600 hover:underline">contact@thetirage.com</a></p>
             </div>
           </section>
