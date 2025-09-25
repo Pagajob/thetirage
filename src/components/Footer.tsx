@@ -82,7 +82,7 @@ const Footer: React.FC<FooterProps> = ({ affiliateCode }) => {
                 </a>
               </li>
               <li>
-                <a href="#" className="hover:text-white transition-colors">
+                <a href="/politique-confidentialite" className="hover:text-white transition-colors">
                   {t('footer.privacy')}
                 </a>
               </li>
