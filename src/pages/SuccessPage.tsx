@@ -3,7 +3,6 @@ import { useTranslation } from 'react-i18next';
 import { useSearchParams, Link } from 'react-router-dom';
 import { CircleCheck as CheckCircle, Mail, Calendar, Share2, ArrowRight } from 'lucide-react';
 import LanguageSelector from '../components/LanguageSelector';
-import { trackPurchase, trackPixelPurchase } from '../lib/analytics';
 
 const SuccessPage: React.FC = () => {
   const { t } = useTranslation();
@@ -13,30 +12,13 @@ const SuccessPage: React.FC = () => {
   const [showConfetti, setShowConfetti] = useState(true);
 
   useEffect(() => {
-    // Track purchase conversion
-    if (sessionId) {
-      // You might want to get the actual purchase value from your backend
-      // For now, we'll use a default value
-      const purchaseValue = 9.99; // This should be dynamic based on the actual purchase
-      
-      trackPurchase(sessionId, purchaseValue, 'EUR', [{
-        item_id: 'thetirage_ticket',
-        item_name: 'Ticket Thetirage',
-        category: 'Jeu-concours',
-        quantity: 1,
-        price: purchaseValue
-      }]);
-      
-      trackPixelPurchase(purchaseValue, 'EUR');
-    }
-    
     // Hide confetti after 3 seconds
     const timer = setTimeout(() => {
       setShowConfetti(false);
     }, 3000);
 
     return () => clearTimeout(timer);
-  }, [sessionId]);
+  }, []);
 
   const shareOnSocial = (platform: string) => {
     const text = t('success.shareText', { 
