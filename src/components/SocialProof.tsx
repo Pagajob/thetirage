@@ -23,9 +23,9 @@ const SocialProof: React.FC = () => {
     {
       name: "Sarah M.",
       prize: "AirPods Pro",
-      month: "Septembre 2024",
+      month: "Juin 2025",
       image: "https://images.pexels.com/photos/774909/pexels-photo-774909.jpeg?w=150&h=150&fit=crop&crop=face",
-      testimonial: "Super expérience ! Le tirage sur Snapchat était génial, très bien organisé 👏"
+      testimonial: "Super expérience ! Merci pour les écouteurs ca change des vieux filaires !!"
     }
   ];
 
