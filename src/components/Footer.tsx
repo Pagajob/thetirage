@@ -72,7 +72,7 @@ const Footer: React.FC<FooterProps> = ({ affiliateCode }) => {
             <h3 className="text-lg font-semibold mb-4">{t('footer.legalInfo')}</h3>
             <ul className="space-y-2 text-gray-400">
               <li>
-                <a href="#" className="hover:text-white transition-colors">
+                <a href="/reglement" className="hover:text-white transition-colors">
                   {t('footer.gameRules')}
                 </a>
               </li>

@@ -3,6 +3,7 @@ import { BrowserRouter as Router, Routes, Route } from 'react-router-dom';
 import LandingPage from './pages/LandingPage';
 import PromoterPage from './pages/PromoterPage';
 import SuccessPage from './pages/SuccessPage';
+import GameRules from './pages/GameRules';
 
 function App() {
   return (
@@ -12,6 +13,7 @@ function App() {
         <Route path="/promoteur" element={<PromoterPage />} />
         <Route path="/ref/:refCode" element={<LandingPage />} />
         <Route path="/success" element={<SuccessPage />} />
+        <Route path="/reglement" element={<GameRules />} />
       </Routes>
     </Router>
   );
