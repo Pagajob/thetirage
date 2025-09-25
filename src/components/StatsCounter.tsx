@@ -1,6 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import { useTranslation } from 'react-i18next';
 import { Users, Clock, Trophy } from 'lucide-react';
+import { supabase } from '../lib/supabase';
 
 const StatsCounter: React.FC = () => {
   const { t } = useTranslation();
@@ -12,25 +13,73 @@ const StatsCounter: React.FC = () => {
     seconds: 0
   });
 
-  // Simulate participation counter
+  // Fetch real participation count from database
   useEffect(() => {
-    const baseParticipations = 147; // Base de participants
-    const additionalParticipations = 700; // Participants supplémentaires simulés
-    const targetParticipations = baseParticipations + additionalParticipations;
-    const increment = targetParticipations / 100;
-    let current = baseParticipations; // Commencer avec la base
-    
-    const interval = setInterval(() => {
-      current += increment;
-      if (current >= targetParticipations) {
-        setParticipations(targetParticipations);
-        clearInterval(interval);
-      } else {
-        setParticipations(Math.floor(current));
-      }
-    }, 50);
+    const fetchParticipations = async () => {
+      try {
+        // Récupérer toutes les commandes payées
+        const { data: orders, error } = await supabase
+          .from('stripe_orders')
+          .select('*')
+          .eq('payment_status', 'paid')
+          .eq('status', 'completed');
 
-    return () => clearInterval(interval);
+        if (error) {
+          console.error('Error fetching orders:', error);
+          return;
+        }
+
+        let totalParticipations = 147; // Base de participants
+
+        // Calculer les participations selon les prix des tickets
+        if (orders) {
+          for (const order of orders) {
+            // Déterminer le nombre de participations selon le montant
+            const amountInEuros = order.amount_total / 100;
+            
+            if (amountInEuros >= 15 && amountInEuros <= 16) {
+              // Ticket Gold (15.99€) = 4 participations
+              totalParticipations += 4;
+            } else if (amountInEuros >= 9 && amountInEuros <= 10) {
+              // Ticket Silver (9.99€) = 2 participations
+              totalParticipations += 2;
+            } else if (amountInEuros >= 5 && amountInEuros <= 6) {
+              // Ticket Bronze (5.99€) = 1 participation
+              totalParticipations += 1;
+            }
+          }
+        }
+
+        setParticipations(totalParticipations);
+      } catch (error) {
+        console.error('Error calculating participations:', error);
+      }
+    };
+
+    // Fetch initial data
+    fetchParticipations();
+
+    // Set up real-time subscription for new orders
+    const subscription = supabase
+      .channel('orders_changes')
+      .on(
+        'postgres_changes',
+        {
+          event: '*',
+          schema: 'public',
+          table: 'stripe_orders',
+          filter: 'payment_status=eq.paid'
+        },
+        () => {
+          // Refetch when orders change
+          fetchParticipations();
+        }
+      )
+      .subscribe();
+
+    return () => {
+      subscription.unsubscribe();
+    };
   }, []);
 
   // Countdown timer
