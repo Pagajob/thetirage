@@ -108,12 +108,25 @@ Deno.serve(async (req) => {
         // Récupérer les sessions de checkout qui ont utilisé ce code promo
         const sessions = await stripe.checkout.sessions.list({
           limit: 100,
-          expand: ['data.line_items'],
+          expand: ['data.line_items', 'data.discounts.data.promotion_code'],
         });
 
         // Filtrer les sessions qui ont utilisé notre code promo
-        const relevantSessions = sessions.data.filter(session => 
-          session.discount?.promotion_code === promoter.stripe_promotion_code_id
+        const relevantSessions = sessions.data.filter(session => {
+          if (!session.discounts || session.discounts.length === 0) {
+            return false;
+          }
+          
+          return session.discounts.some(discount => {
+            const promotionCode = discount.promotion_code;
+            if (typeof promotionCode === 'string') {
+              return promotionCode === promoter.stripe_promotion_code_id;
+            } else if (promotionCode && typeof promotionCode === 'object') {
+              return promotionCode.id === promoter.stripe_promotion_code_id;
+            }
+            return false;
+          });
+        }
         );
 
         stripeStats.usage_count = relevantSessions.length;
