@@ -356,7 +356,7 @@ const PromoterPage: React.FC = () => {
           <div className="flex justify-center items-center mb-6">
             <Share2 className="h-12 w-12 text-blue-600 mr-3" />
             <img
-              src="/thegrey.png"
+              src="/the.png"
               alt="Thetirage"
               className="h-16 w-auto"
             />
