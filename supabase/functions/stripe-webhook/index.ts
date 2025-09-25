@@ -319,14 +319,19 @@ async function processAffiliateCommission(checkoutSessionId: string, promotionCo
   try {
     console.log(`Processing affiliate commission for session: ${checkoutSessionId}, promotion code: ${promotionCodeId}`);
     
-    // Récupérer les détails du promotion code depuis Stripe
-    const promotionCode = await stripe.promotionCodes.retrieve(promotionCodeId);
-    console.log('Promotion code details:', promotionCode);
-    
-    if (!promotionCode.metadata?.promoter_user_id) {
-      console.log('No promoter_user_id in promotion code metadata');
-      return; // Pas un code promoteur
+    // Récupérer le promoteur directement depuis la base de données avec le promotion code ID
+    const { data: promoter, error: promoterError } = await supabase
+      .from('promoters')
+      .select('id, promo_code, total_sales, total_revenue, total_commission')
+      .eq('stripe_promotion_code_id', promotionCodeId)
+      .single();
+
+    if (promoterError || !promoter) {
+      console.error('Promoter not found for promotion code:', promotionCodeId, promoterError);
+      return;
     }
+
+    console.log('Found promoter:', promoter);
 
     // Récupérer les détails de la session pour connaître le produit
     const session = await stripe.checkout.sessions.retrieve(checkoutSessionId, {
@@ -334,6 +339,7 @@ async function processAffiliateCommission(checkoutSessionId: string, promotionCo
     });
 
     if (!session.line_items?.data[0]) {
+      console.error('No line items found in session');
       return;
     }
 
@@ -343,145 +349,4 @@ async function processAffiliateCommission(checkoutSessionId: string, promotionCo
 
     // Déterminer le taux de commission selon le produit
     switch (priceId) {
-      case 'price_1SBHBREWa5JpT2nEQSe5Jx3e': // Bronze
-        commissionRate = 0.15; // 15%
-        productName = 'Ticket Bronze';
-        break;
-      case 'price_1SBHCeEWa5JpT2nEJrt20BIh': // Silver
-        commissionRate = 0.30; // 30%
-        productName = 'Ticket Silver';
-        break;
-      case 'price_1SBHEeEWa5JpT2nEg1K6tDSs': // Gold
-        commissionRate = 0.35; // 35%
-        productName = 'Ticket Gold';
-        break;
-      default:
-        commissionRate = 0.20; // Taux par défaut
-    }
-
-    // Récupérer le promoteur
-    const { data: promoter } = await supabase
-      .from('promoters')
-      .select('id, promo_code, total_sales, total_revenue, total_commission')
-      .eq('stripe_promotion_code_id', promotionCodeId)
-      .single();
-
-    if (!promoter) {
-      console.error('Promoter not found for promotion code:', promotionCodeId);
-      return;
-    }
-
-    console.log('Found promoter:', promoter);
-
-    // Calculer la commission (sur le montant avant réduction)
-    const originalAmount = amountTotal; // Le montant total est déjà le montant payé
-    const commissionAmount = originalAmount * commissionRate;
-
-    console.log(`Commission calculation: original=${originalAmount/100}€, rate=${commissionRate*100}%, commission=${commissionAmount/100}€`);
-
-    // Enregistrer la vente d'affiliation
-    const { error: affiliateError } = await supabase
-      .from('affiliate_sales')
-      .insert({
-        promoter_id: promoter.id,
-        checkout_session_id: checkoutSessionId,
-        customer_email: session.customer_details?.email,
-        amount: (originalAmount / 100), // Convertir en euros
-        commission_amount: commissionAmount / 100, // Convertir en euros
-        product_name: productName,
-      });
-
-    if (affiliateError) {
-      console.error('Error recording affiliate sale:', affiliateError);
-      return;
-    }
-
-    console.log('Affiliate sale recorded successfully');
-
-    // Mettre à jour les totaux du promoteur
-    const { error: updateError } = await supabase
-      .from('promoters')
-      .update({
-        total_sales: (promoter.total_sales || 0) + 1,
-        total_revenue: (promoter.total_revenue || 0) + (originalAmount / 100),
-        total_commission: (promoter.total_commission || 0) + (commissionAmount / 100),
-        updated_at: new Date().toISOString(),
-      })
-      .eq('id', promoter.id);
-
-    if (updateError) {
-      console.error('Error updating promoter totals:', updateError);
-      return;
-    }
-
-    console.log('Promoter totals updated successfully');
-    console.info(`Processed affiliate commission: ${commissionAmount / 100}€ for promoter ${promoter.promo_code}`);
-  } catch (error) {
-    console.error('Error processing affiliate commission:', error);
-  }
-}
-// based on the excellent https://github.com/t3dotgg/stripe-recommendations
-async function syncCustomerFromStripe(customerId: string) {
-  try {
-    // fetch latest subscription data from Stripe
-    const subscriptions = await stripe.subscriptions.list({
-      customer: customerId,
-      limit: 1,
-      status: 'all',
-      expand: ['data.default_payment_method'],
-    });
-
-    // TODO verify if needed
-    if (subscriptions.data.length === 0) {
-      console.info(`No active subscriptions found for customer: ${customerId}`);
-      const { error: noSubError } = await supabase.from('stripe_subscriptions').upsert(
-        {
-          customer_id: customerId,
-          subscription_status: 'not_started',
-        },
-        {
-          onConflict: 'customer_id',
-        },
-      );
-
-      if (noSubError) {
-        console.error('Error updating subscription status:', noSubError);
-        throw new Error('Failed to update subscription status in database');
-      }
-    }
-
-    // assumes that a customer can only have a single subscription
-    const subscription = subscriptions.data[0];
-
-    // store subscription state
-    const { error: subError } = await supabase.from('stripe_subscriptions').upsert(
-      {
-        customer_id: customerId,
-        subscription_id: subscription.id,
-        price_id: subscription.items.data[0].price.id,
-        current_period_start: subscription.current_period_start,
-        current_period_end: subscription.current_period_end,
-        cancel_at_period_end: subscription.cancel_at_period_end,
-        ...(subscription.default_payment_method && typeof subscription.default_payment_method !== 'string'
-          ? {
-              payment_method_brand: subscription.default_payment_method.card?.brand ?? null,
-              payment_method_last4: subscription.default_payment_method.card?.last4 ?? null,
-            }
-          : {}),
-        status: subscription.status,
-      },
-      {
-        onConflict: 'customer_id',
-      },
-    );
-
-    if (subError) {
-      console.error('Error syncing subscription:', subError);
-      throw new Error('Failed to sync subscription in database');
-    }
-    console.info(`Successfully synced subscription for customer: ${customerId}`);
-  } catch (error) {
-    console.error(`Failed to sync subscription for customer ${customerId}:`, error);
-    throw error;
-  }
-}
+      case 'price_1SBHBREWa5JpT2nEQSe5
