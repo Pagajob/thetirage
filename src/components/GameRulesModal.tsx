@@ -163,7 +163,7 @@ const GameRulesModal: React.FC<GameRulesModalProps> = ({ isOpen, onClose }) => {
               <h4 className="text-sm font-semibold text-blue-900 mb-2">Contact</h4>
               <div className="space-y-1 text-sm text-blue-800">
                 <p><strong>Organisateur :</strong> PAGAJOB SASU</p>
-                <p><strong>Site :</strong> <a href="https://thetirage.com" className="text-blue-600 hover:underline">thetirage.com</a></p>
+                <p><strong>Site :</strong> <a href="https://thetirage.com" className=\"text-blue-600 hover:underline">thetirage.com</a></p>
                 <p><strong>Email :</strong> <a href="mailto:contact@pagajob.com" className="text-blue-600 hover:underline">contact@pagajob.com</a></p>
               </div>
             </div>
