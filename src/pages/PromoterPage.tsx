@@ -642,7 +642,7 @@ const PromoterPage: React.FC = () => {
                 <div>
                   <p className="text-blue-800 font-medium mb-1">Paiement des commissions</p>
                   <p className="text-blue-700 text-sm">
-                    Vos commissions sont versées automatiquement chaque semaine sur votre compte bancaire. 
+                    Vos commissions sont versées automatiquement après chaque tirage sur votre compte bancaire. 
                     Assurez-vous que vos informations sont correctes pour éviter tout retard de paiement.
                   </p>
                 </div>
