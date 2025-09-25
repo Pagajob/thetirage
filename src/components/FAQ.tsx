@@ -88,7 +88,7 @@ const FAQ: React.FC = () => {
               {t('faq.contactSubtitle')}
             </p>
             <a 
-              href="mailto:contact@pagajob.com?subject=Question sur Thetirage&body=Bonjour,%0D%0A%0D%0AJ'ai une question concernant le jeu-concours Thetirage :%0D%0A%0D%0A"
+              href="mailto:contact@thetirage.com?subject=Question sur Thetirage&body=Bonjour,%0D%0A%0D%0AJ'ai une question concernant le jeu-concours Thetirage :%0D%0A%0D%0A"
               className="inline-block bg-blue-600 text-white px-6 py-3 rounded-full hover:bg-blue-700 transition-colors font-semibold"
             >
               {t('faq.contactButton')}
