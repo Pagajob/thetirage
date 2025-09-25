@@ -41,7 +41,7 @@ const TermsConditions: React.FC = () => {
               <p className="text-gray-700 leading-relaxed">
                 Les présentes Conditions Générales d'Utilisation (ci-après « CGU ») définissent les modalités 
                 et conditions dans lesquelles la société <strong>PAGAJOB SASU</strong> (ci-après « l'Organisateur »), 
-                propose l'accès et l'utilisation du site <a href="https://thetirage.com" className="text-blue-600 hover:underline">https://thetirage.com</a>.
+                propose l'accès et l\'utilisation du site <a href="https://thetirage.com" className="text-blue-600 hover:underline">https://thetirage.com</a>.
               </p>
             </div>
             <p className="text-gray-700 leading-relaxed">
@@ -271,7 +271,7 @@ const TermsConditions: React.FC = () => {
             <h2 className="text-xl font-bold text-gray-900 mb-4">Contact</h2>
             <div className="space-y-2 text-gray-700">
               <p><strong>Organisateur :</strong> PAGAJOB SASU</p>
-              <p><strong>Site web :</strong> <a href="https://thetirage.com" className="text-blue-600 hover:underline">https://thetirage.com</a></p>
+              <p><strong>Site web :</strong> <a href="https://thetirage.com" className=\"text-blue-600 hover:underline">https://thetirage.com</a></p>
               <p><strong>Email :</strong> <a href="mailto:contact@thetirage.com" className="text-blue-600 hover:underline">contact@thetirage.com</a></p>
             </div>
           </section>
