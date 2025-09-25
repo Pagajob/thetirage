@@ -77,7 +77,7 @@ const Footer: React.FC<FooterProps> = ({ affiliateCode }) => {
                 </a>
               </li>
               <li>
-                <a href="#" className="hover:text-white transition-colors">
+                <a href="/conditions-generales" className="hover:text-white transition-colors">
                   {t('footer.terms')}
                 </a>
               </li>
