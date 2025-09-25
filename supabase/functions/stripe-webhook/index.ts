@@ -101,6 +101,9 @@ async function handleEvent(event: Stripe.Event) {
           discount,
         } = stripeData as Stripe.Checkout.Session;
 
+        console.log(`Processing payment for session: ${checkout_session_id}`);
+        console.log('Discount info:', discount);
+
         // Insert the order into the stripe_orders table
         const { error: orderError } = await supabase.from('stripe_orders').insert({
           checkout_session_id,
@@ -118,12 +121,17 @@ async function handleEvent(event: Stripe.Event) {
           return;
         }
 
+        console.log('Order inserted successfully');
+
         // Envoyer l'email de confirmation de participation
         await sendParticipationConfirmationEmail(checkout_session_id, customerId);
 
         // Traiter la commission d'affiliation si un code promo a été utilisé
-        if (discount && discount.promotion_code) {
-          await processAffiliateCommission(checkout_session_id, discount.promotion_code, amount_total);
+        if (discount?.promotion_code) {
+          console.log(`Processing affiliate commission for promotion code: ${discount.promotion_code}`);
+          await processAffiliateCommission(checkout_session_id, discount.promotion_code, amount_total || 0);
+        } else {
+          console.log('No promotion code used in this transaction');
         }
 
         console.info(`Successfully processed one-time payment for session: ${checkout_session_id}`);
@@ -300,10 +308,14 @@ async function sendParticipationConfirmationEmail(checkoutSessionId: string, cus
 
 async function processAffiliateCommission(checkoutSessionId: string, promotionCodeId: string, amountTotal: number) {
   try {
+    console.log(`Processing affiliate commission for session: ${checkoutSessionId}, promotion code: ${promotionCodeId}`);
+    
     // Récupérer les détails du promotion code depuis Stripe
     const promotionCode = await stripe.promotionCodes.retrieve(promotionCodeId);
+    console.log('Promotion code details:', promotionCode);
     
     if (!promotionCode.metadata?.promoter_user_id) {
+      console.log('No promoter_user_id in promotion code metadata');
       return; // Pas un code promoteur
     }
 
@@ -341,7 +353,7 @@ async function processAffiliateCommission(checkoutSessionId: string, promotionCo
     // Récupérer le promoteur
     const { data: promoter } = await supabase
       .from('promoters')
-      .select('id, promo_code')
+      .select('id, promo_code, total_sales, total_revenue, total_commission')
       .eq('stripe_promotion_code_id', promotionCodeId)
       .single();
 
@@ -350,9 +362,13 @@ async function processAffiliateCommission(checkoutSessionId: string, promotionCo
       return;
     }
 
+    console.log('Found promoter:', promoter);
+
     // Calculer la commission (sur le montant avant réduction)
-    const originalAmount = amountTotal / 0.9; // Retrouver le montant avant 10% de réduction
+    const originalAmount = amountTotal; // Le montant total est déjà le montant payé
     const commissionAmount = originalAmount * commissionRate;
+
+    console.log(`Commission calculation: original=${originalAmount/100}€, rate=${commissionRate*100}%, commission=${commissionAmount/100}€`);
 
     // Enregistrer la vente d'affiliation
     const { error: affiliateError } = await supabase
@@ -361,7 +377,7 @@ async function processAffiliateCommission(checkoutSessionId: string, promotionCo
         promoter_id: promoter.id,
         checkout_session_id: checkoutSessionId,
         customer_email: session.customer_details?.email,
-        amount: originalAmount / 100, // Convertir en euros
+        amount: (originalAmount / 100), // Convertir en euros
         commission_amount: commissionAmount / 100, // Convertir en euros
         product_name: productName,
       });
@@ -371,21 +387,25 @@ async function processAffiliateCommission(checkoutSessionId: string, promotionCo
       return;
     }
 
+    console.log('Affiliate sale recorded successfully');
+
     // Mettre à jour les totaux du promoteur
     const { error: updateError } = await supabase
       .from('promoters')
       .update({
-        total_sales: promoter.total_sales + 1,
-        total_revenue: promoter.total_revenue + (originalAmount / 100),
-        total_commission: promoter.total_commission + (commissionAmount / 100),
+        total_sales: (promoter.total_sales || 0) + 1,
+        total_revenue: (promoter.total_revenue || 0) + (originalAmount / 100),
+        total_commission: (promoter.total_commission || 0) + (commissionAmount / 100),
         updated_at: new Date().toISOString(),
       })
       .eq('id', promoter.id);
 
     if (updateError) {
       console.error('Error updating promoter totals:', updateError);
+      return;
     }
 
+    console.log('Promoter totals updated successfully');
     console.info(`Processed affiliate commission: ${commissionAmount / 100}€ for promoter ${promoter.promo_code}`);
   } catch (error) {
     console.error('Error processing affiliate commission:', error);
