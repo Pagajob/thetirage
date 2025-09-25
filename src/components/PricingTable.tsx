@@ -10,10 +10,10 @@ const PricingTable: React.FC<PricingTableProps> = ({ affiliateCode, showHeader =
   const { t } = useTranslation();
   
   return (
-    <section id="pricing" className="py-20 bg-white">
+    <section id="pricing" className="py-20" style={{ backgroundColor: showHeader ? 'white' : '#2848ca' }}>
       <div className="max-w-7xl mx-auto px-4">
         {showHeader && (
-          <div className="text-center mb-16">
+          <div className="text-center mb-16 text-gray-900">
             <h2 className="text-4xl font-bold text-gray-900 mb-4">
               {t('pricing.title')}
             </h2>
@@ -59,15 +59,15 @@ const PricingTable: React.FC<PricingTableProps> = ({ affiliateCode, showHeader =
 </section>
 
         <div className="text-center mt-12">
-          <p className="text-gray-600">
+          <p className={showHeader ? "text-gray-600" : "text-white"}>
             {t('pricing.security')}
           </p>
           {affiliateCode && (
-            <div className="mt-4 p-3 bg-green-50 border border-green-200 rounded-lg inline-block">
-              <p className="text-sm text-green-800 font-medium">
+            <div className={`mt-4 p-3 rounded-lg inline-block ${showHeader ? 'bg-green-50 border border-green-200' : 'bg-white bg-opacity-20 border border-white border-opacity-30'}`}>
+              <p className={`text-sm font-medium ${showHeader ? 'text-green-800' : 'text-white'}`}>
                 🎉 Code promoteur actif: <strong>{affiliateCode}</strong>
               </p>
-              <p className="text-xs text-green-600 mt-1">
+              <p className={`text-xs mt-1 ${showHeader ? 'text-green-600' : 'text-white text-opacity-90'}`}>
                 Vous bénéficiez de 10% de réduction sur votre commande !
               </p>
             </div>
