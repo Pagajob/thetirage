@@ -26,11 +26,11 @@
     },
     "step3": {
       "title": "3. Tirage en live",
-      "description": "Découvre le gagnant en direct sur Snapchat - 100% transparent !"
+      "description": "Découvre le gagnant en direct sur nos réseaux - 100% transparent !"
     }
   },
   "stats": {
-    "participations": "Participations ce mois-ci",
+    "participations": "Participations seulement !",
     "timeLeft": "Avant la fin des participations",
     "prizeValue": "Valeur du prix principal",
     "hurryUp": "⚡ Dépêche-toi ! Plus que {{days}} jours pour participer",
