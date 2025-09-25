@@ -4,10 +4,48 @@
     <meta charset="UTF-8" />
     <link rel="icon" type="image/png" href="/the.png" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>Thetirage - Jeu Concours Mensuel</title>
+    <title>Thetirage - Gagnez un iPhone 17 Pro Max | Jeu-Concours Mensuel</title>
+    <meta name="description" content="Participez au tirage mensuel Thetirage et tentez de gagner un iPhone 17 Pro Max ! Tickets à partir de 5,99€. Tirage transparent et sécurisé." />
+    <meta name="keywords" content="jeu concours, iPhone 17 Pro Max, tirage au sort, gagner iPhone, concours mensuel" />
+    <meta property="og:title" content="Thetirage - Gagnez un iPhone 17 Pro Max" />
+    <meta property="og:description" content="Participez au tirage mensuel et tentez de gagner un iPhone 17 Pro Max ! Tickets à partir de 5,99€." />
+    <meta property="og:image" content="/iphone.png" />
+    <meta property="og:url" content="https://thetirage.com" />
+    <meta property="og:type" content="website" />
+    <meta name="twitter:card" content="summary_large_image" />
+    <meta name="twitter:title" content="Thetirage - Gagnez un iPhone 17 Pro Max" />
+    <meta name="twitter:description" content="Participez au tirage mensuel et tentez de gagner un iPhone 17 Pro Max !" />
+    <meta name="twitter:image" content="/iphone.png" />
+    
+    <!-- Google Analytics 4 -->
+    <script async src="https://www.googletagmanager.com/gtag/js?id=GA_MEASUREMENT_ID"></script>
+    <script>
+      window.dataLayer = window.dataLayer || [];
+      function gtag(){dataLayer.push(arguments);}
+      gtag('js', new Date());
+      gtag('config', 'GA_MEASUREMENT_ID');
+    </script>
+    
+    <!-- Meta Pixel -->
+    <script>
+      !function(f,b,e,v,n,t,s)
+      {if(f.fbq)return;n=f.fbq=function(){n.callMethod?
+      n.callMethod.apply(n,arguments):n.queue.push(arguments)};
+      if(!f._fbq)f._fbq=n;n.push=n;n.loaded=!0;n.version='2.0';
+      n.queue=[];t=b.createElement(e);t.async=!0;
+      t.src=v;s=b.getElementsByTagName(e)[0];
+      s.parentNode.insertBefore(t,s)}(window, document,'script',
+      'https://connect.facebook.net/en_US/fbevents.js');
+      fbq('init', 'YOUR_PIXEL_ID');
+      fbq('track', 'PageView');
+    </script>
+    
     <script async src="https://js.stripe.com/v3/pricing-table.js"></script>
   </head>
   <body>
+    <noscript><img height="1" width="1" style="display:none"
+      src="https://www.facebook.com/tr?id=YOUR_PIXEL_ID&ev=PageView&noscript=1"
+    /></noscript>
     <div id="root"></div>
     <script type="module" src="/src/main.tsx"></script>
   </body>

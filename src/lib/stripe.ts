@@ -1,4 +1,5 @@
 import { createClient } from '@supabase/supabase-js';
+import { trackBeginCheckout, trackPixelInitiateCheckout } from './analytics';
 
 const supabase = createClient(
   import.meta.env.VITE_SUPABASE_URL!,
@@ -10,6 +11,11 @@ export async function createCheckoutSession(
   affiliateCode?: string | null
 ) {
   try {
+    // Track checkout initiation
+    const priceValue = getPriceFromPriceId(priceId);
+    trackBeginCheckout(priceValue);
+    trackPixelInitiateCheckout(priceValue);
+    
     const { data: { session } } = await supabase.auth.getSession();
     
     if (!session) {
@@ -51,5 +57,18 @@ export async function createCheckoutSession(
   } catch (error) {
     console.error('Error creating checkout session:', error);
     throw error;
+  }
+}
+
+function getPriceFromPriceId(priceId: string): number {
+  switch (priceId) {
+    case 'price_1SBHBREWa5JpT2nEQSe5Jx3e': // Bronze
+      return 5.99;
+    case 'price_1SBHCeEWa5JpT2nEJrt20BIh': // Silver
+      return 9.99;
+    case 'price_1SBHEeEWa5JpT2nEg1K6tDSs': // Gold
+      return 15.99;
+    default:
+      return 0;
   }
 }
