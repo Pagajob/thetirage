@@ -14,9 +14,11 @@ const StatsCounter: React.FC = () => {
 
   // Simulate participation counter
   useEffect(() => {
-    const targetParticipations = 847;
+    const baseParticipations = 147; // Base de participants
+    const additionalParticipations = 700; // Participants supplémentaires simulés
+    const targetParticipations = baseParticipations + additionalParticipations;
     const increment = targetParticipations / 100;
-    let current = 0;
+    let current = baseParticipations; // Commencer avec la base
     
     const interval = setInterval(() => {
       current += increment;
