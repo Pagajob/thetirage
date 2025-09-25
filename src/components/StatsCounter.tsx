@@ -13,6 +13,10 @@ const StatsCounter: React.FC = () => {
     seconds: 0
   });
 
+  const scrollToPricing = () => {
+    document.getElementById('pricing')?.scrollIntoView({ behavior: 'smooth' });
+  };
+
   // Fetch real participation count from database
   useEffect(() => {
     const fetchParticipations = async () => {
@@ -173,9 +177,12 @@ const StatsCounter: React.FC = () => {
 
         <div className="text-center mt-12">
           {timeLeft.days > 0 || timeLeft.hours > 0 || timeLeft.minutes > 0 || timeLeft.seconds > 0 ? (
-            <div className="inline-flex items-center bg-yellow-400 text-blue-900 px-6 py-3 rounded-full font-bold">
+            <button
+              onClick={scrollToPricing}
+              className="inline-flex items-center bg-yellow-400 text-blue-900 px-6 py-3 rounded-full font-bold hover:bg-yellow-300 transition-colors cursor-pointer"
+            >
               {t('stats.hurryUp', { days: timeLeft.days })}
-            </div>
+            </button>
           ) : (
             <div className="inline-flex items-center bg-red-500 text-white px-6 py-3 rounded-full font-bold">
               {t('stats.closed')}
