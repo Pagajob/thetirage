@@ -4,7 +4,7 @@
             <img
               src="/Tirage.svg"
               alt="Thetirage" 
-              className="h-16 w-auto mr-4"
+              className="h-26 w-auto mr-4"
             />
             <h1 className="text-4xl font-bold text-gray-900">Espace Promoteur</h1>
            </div>
