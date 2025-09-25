@@ -77,7 +77,8 @@
     "instagram": "Instagram",
     "copyright": "© 2025 Thetirage. Tous droits réservés.",
     "gameInfo": "Jeu autorisé - Participation limitée aux résidents français de plus de 18 ans",
-    "viaPromoter": "Via le promoteur : {{code}}"
+    "viaPromoter": "Via le promoteur : {{code}}",
+    "promoterSpace": "💰 Espace Promoteur"
   },
   "success": {
     "congratulations": "Félicitations !",

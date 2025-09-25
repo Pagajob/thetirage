@@ -77,7 +77,8 @@
     "instagram": "Instagram",
     "copyright": "© 2025 Thetirage. All rights reserved.",
     "gameInfo": "Authorized game - Participation limited to French residents over 18",
-    "viaPromoter": "Via promoter: {{code}}"
+    "viaPromoter": "Via promoter: {{code}}",
+    "promoterSpace": "💰 Promoter Space"
   },
   "success": {
     "congratulations": "Congratulations!",

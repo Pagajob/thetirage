@@ -91,6 +91,11 @@ const Footer: React.FC<FooterProps> = ({ affiliateCode }) => {
                   {t('footer.support')}
                 </a>
               </li>
+              <li>
+                <a href="/promoteur" className="hover:text-yellow-400 transition-colors font-medium">
+                  💰 Espace Promoteur
+                </a>
+              </li>
             </ul>
           </div>
           
