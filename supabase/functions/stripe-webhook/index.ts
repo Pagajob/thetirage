@@ -131,6 +131,9 @@ async function handleEvent(event: Stripe.Event) {
         // Envoyer l'email de confirmation de participation
         await sendParticipationConfirmationEmail(checkout_session_id, customerId);
 
+        // Générer et enregistrer les tickets
+        await generateAndSaveTickets(checkout_session_id, customerId, amount_total || 0);
+
         // Traiter la commission d'affiliation si un code promo a été utilisé
         if (fullSession.discount?.promotion_code) {
           const promotionCodeId = typeof fullSession.discount.promotion_code === 'string' 
@@ -148,6 +151,85 @@ async function handleEvent(event: Stripe.Event) {
         console.error('Error processing one-time payment:', error);
       }
     }
+  }
+}
+
+async function generateAndSaveTickets(checkoutSessionId: string, customerId: string, amountTotal: number) {
+  try {
+    console.log(`Generating tickets for session: ${checkoutSessionId}, amount: ${amountTotal}`);
+    
+    // Récupérer les détails de la session pour obtenir l'email du client
+    const session = await stripe.checkout.sessions.retrieve(checkoutSessionId, {
+      expand: ['line_items.data.price']
+    });
+
+    if (!session.customer_details?.email) {
+      console.error('No customer email found for session:', checkoutSessionId);
+      return;
+    }
+
+    const customerEmail = session.customer_details.email;
+    const amountInEuros = amountTotal / 100; // Convertir de centimes en euros
+    
+    // Déterminer le type de ticket et le nombre de tickets à générer
+    let ticketType = 'Bronze';
+    let ticketCount = 1;
+    
+    if (session.line_items?.data[0]) {
+      const priceId = session.line_items.data[0].price?.id;
+      switch (priceId) {
+        case 'price_1SBHBREWa5JpT2nEQSe5Jx3e': // Bronze
+          ticketType = 'Bronze';
+          ticketCount = 1;
+          break;
+        case 'price_1SBHCeEWa5JpT2nEJrt20BIh': // Silver
+          ticketType = 'Silver';
+          ticketCount = 2;
+          break;
+        case 'price_1SBHEeEWa5JpT2nEg1K6tDSs': // Gold
+          ticketType = 'Gold';
+          ticketCount = 4;
+          break;
+        default:
+          console.warn(`Unknown price ID: ${priceId}, defaulting to Bronze`);
+      }
+    }
+
+    console.log(`Generating ${ticketCount} ${ticketType} tickets for ${customerEmail}`);
+
+    // Générer les tickets individuels
+    const tickets = [];
+    for (let i = 0; i < ticketCount; i++) {
+      tickets.push({
+        email: customerEmail,
+        session_id: checkoutSessionId,
+        ticket_type: ticketType,
+        amount_paid: amountInEuros,
+        // ticket_code et id seront générés automatiquement par la base de données
+      });
+    }
+
+    // Insérer tous les tickets en une seule requête
+    const { data: insertedTickets, error: ticketsError } = await supabase
+      .from('tickets')
+      .insert(tickets)
+      .select('*');
+
+    if (ticketsError) {
+      console.error('Error inserting tickets:', ticketsError);
+      return;
+    }
+
+    console.log(`Successfully generated ${insertedTickets?.length || 0} tickets for session ${checkoutSessionId}`);
+    
+    // Log des codes de tickets générés pour debug
+    if (insertedTickets) {
+      const ticketCodes = insertedTickets.map(ticket => ticket.ticket_code);
+      console.log(`Generated ticket codes: ${ticketCodes.join(', ')}`);
+    }
+
+  } catch (error) {
+    console.error('Error in generateAndSaveTickets:', error);
   }
 }
 

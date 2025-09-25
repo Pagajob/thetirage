@@ -3,6 +3,7 @@ import { useTranslation } from 'react-i18next';
 import { useSearchParams, Link } from 'react-router-dom';
 import { CircleCheck as CheckCircle, Mail, Calendar, Share2, ArrowRight } from 'lucide-react';
 import LanguageSelector from '../components/LanguageSelector';
+import { getUserTickets, type Ticket } from '../lib/supabase';
 
 const SuccessPage: React.FC = () => {
   const { t } = useTranslation();
@@ -10,6 +11,8 @@ const SuccessPage: React.FC = () => {
   const sessionId = searchParams.get('session_id');
   const refCode = searchParams.get('ref');
   const [showConfetti, setShowConfetti] = useState(true);
+  const [userTickets, setUserTickets] = useState<Ticket[]>([]);
+  const [customerEmail, setCustomerEmail] = useState<string>('');
 
   useEffect(() => {
     // Hide confetti after 3 seconds
@@ -19,6 +22,33 @@ const SuccessPage: React.FC = () => {
 
     return () => clearTimeout(timer);
   }, []);
+
+  // Récupérer les tickets de l'utilisateur si on a un session_id
+  useEffect(() => {
+    const fetchUserTickets = async () => {
+      if (!sessionId) return;
+      
+      try {
+        // On ne peut pas récupérer directement l'email depuis le session_id côté client
+        // On va utiliser une approche différente : stocker l'email dans localStorage lors du checkout
+        const storedEmail = localStorage.getItem('checkout_email');
+        if (storedEmail) {
+          setCustomerEmail(storedEmail);
+          const tickets = await getUserTickets(storedEmail);
+          // Filtrer les tickets de cette session spécifique
+          const sessionTickets = tickets.filter(ticket => ticket.session_id === sessionId);
+          setUserTickets(sessionTickets);
+          
+          // Nettoyer le localStorage
+          localStorage.removeItem('checkout_email');
+        }
+      } catch (error) {
+        console.error('Error fetching user tickets:', error);
+      }
+    };
+
+    fetchUserTickets();
+  }, [sessionId]);
 
   const shareOnSocial = (platform: string) => {
     const text = t('success.shareText', { 
@@ -91,6 +121,32 @@ const SuccessPage: React.FC = () => {
             <div className="bg-blue-50 border border-blue-200 rounded-lg p-4 mb-6">
               <p className="text-sm text-blue-800">
                 <strong>{t('success.transactionNumber')}</strong> {sessionId.slice(-8).toUpperCase()}
+              </p>
+            </div>
+          )}
+
+          {/* Affichage des tickets générés */}
+          {userTickets.length > 0 && (
+            <div className="bg-green-50 border border-green-200 rounded-lg p-4 mb-6">
+              <h3 className="font-semibold text-green-800 mb-3">
+                🎫 Vos tickets générés ({userTickets.length})
+              </h3>
+              <div className="space-y-2">
+                {userTickets.map((ticket, index) => (
+                  <div key={ticket.id} className="bg-white p-3 rounded border border-green-200">
+                    <div className="flex justify-between items-center">
+                      <span className="font-mono text-sm text-gray-700">
+                        Ticket #{index + 1}: {ticket.ticket_code.slice(0, 8).toUpperCase()}
+                      </span>
+                      <span className="text-xs bg-green-100 text-green-800 px-2 py-1 rounded">
+                        {ticket.ticket_type}
+                      </span>
+                    </div>
+                  </div>
+                ))}
+              </div>
+              <p className="text-xs text-green-600 mt-2">
+                Conservez ces numéros de tickets pour le tirage !
               </p>
             </div>
           )}

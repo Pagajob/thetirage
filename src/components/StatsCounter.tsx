@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import { useTranslation } from 'react-i18next';
 import { Users, Clock, Trophy } from 'lucide-react';
-import { supabase } from '../lib/supabase';
+import { supabase, getTicketStats } from '../lib/supabase';
 
 const StatsCounter: React.FC = () => {
   const { t } = useTranslation();
@@ -21,42 +21,16 @@ const StatsCounter: React.FC = () => {
   useEffect(() => {
     const fetchParticipations = async () => {
       try {
-        // Récupérer toutes les commandes payées
-        const { data: orders, error } = await supabase
-          .from('stripe_orders')
-          .select('*')
-          .eq('payment_status', 'paid')
-          .eq('status', 'completed');
-
-        if (error) {
-          console.error('Error fetching orders:', error);
-          return;
-        }
-
-        let totalParticipations = 147; // Base de participants
-
-        // Calculer les participations selon les prix des tickets
-        if (orders) {
-          for (const order of orders) {
-            // Déterminer le nombre de participations selon le montant
-            const amountInEuros = order.amount_total / 100;
-            
-            if (amountInEuros >= 15 && amountInEuros <= 16) {
-              // Ticket Gold (15.99€) = 4 participations
-              totalParticipations += 4;
-            } else if (amountInEuros >= 9 && amountInEuros <= 10) {
-              // Ticket Silver (9.99€) = 2 participations
-              totalParticipations += 2;
-            } else if (amountInEuros >= 5 && amountInEuros <= 6) {
-              // Ticket Bronze (5.99€) = 1 participation
-              totalParticipations += 1;
-            }
-          }
-        }
-
+        // Récupérer les statistiques des tickets directement
+        const ticketStats = await getTicketStats();
+        const baseParticipations = 147; // Base de participants existants
+        
+        // Chaque ticket = 1 participation (les tickets sont déjà générés selon le type)
+        const totalParticipations = baseParticipations + ticketStats.totalTickets;
+        
         setParticipations(totalParticipations);
       } catch (error) {
-        console.error('Error calculating participations:', error);
+        console.error('Error fetching participations:', error);
       }
     };
 
@@ -65,17 +39,16 @@ const StatsCounter: React.FC = () => {
 
     // Set up real-time subscription for new orders
     const subscription = supabase
-      .channel('orders_changes')
+      .channel('tickets_changes')
       .on(
         'postgres_changes',
         {
           event: '*',
           schema: 'public',
-          table: 'stripe_orders',
-          filter: 'payment_status=eq.paid'
+          table: 'tickets'
         },
         () => {
-          // Refetch when orders change
+          // Refetch when tickets change
           fetchParticipations();
         }
       )

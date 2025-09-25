@@ -18,6 +18,13 @@ export async function createCheckoutSession(
       console.warn('User not authenticated, proceeding with guest checkout');
     }
 
+    // Stocker temporairement l'email pour la récupération des tickets
+    // Note: Ceci est une solution temporaire, idéalement on devrait passer par le webhook
+    const userEmail = session?.user?.email;
+    if (userEmail) {
+      localStorage.setItem('checkout_email', userEmail);
+    }
+
     const response = await fetch(
       `${import.meta.env.VITE_SUPABASE_URL}/functions/v1/stripe-checkout`,
       {
