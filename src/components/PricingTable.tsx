@@ -31,20 +31,26 @@ const PricingTable: React.FC<PricingTableProps> = ({ affiliateCode, showHeader =
         )}
 
         {/* Wrapper large et centré pour forcer le layout desktop */}
-<section className="w-full -mx-4 px-4">
-  <div className="w-full mb-10">
-    <div className="w-full max-w-none">
+<section className="w-full">
+  <div className="w-full mb-10 flex justify-center">
+    <div className="w-full max-w-4xl">
       <style>{`
         stripe-pricing-table {
-          border-radius: 0 !important;
-          width: 100vw !important;
-          margin-left: calc(-50vw + 50%) !important;
+          border-radius: 12px !important;
+          width: 100% !important;
+          margin: 0 auto !important;
         }
         stripe-pricing-table > div,
         stripe-pricing-table table,
         stripe-pricing-table [class*="container"] {
           width: 100% !important;
-          border-radius: 0 !important;
+          border-radius: 12px !important;
+        }
+        @media (max-width: 768px) {
+          stripe-pricing-table {
+            margin: 0 !important;
+            padding: 0 16px !important;
+          }
         }
       `}</style>
       {/* IMPORTANT: script Stripe dans <head> :
