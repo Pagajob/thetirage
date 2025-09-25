@@ -276,9 +276,9 @@ const PromoterPage: React.FC = () => {
                 Se connecter / S'inscrire
               </button>
               <a href="mailto:contact@thetirage.com" className="text-blue-600 hover:underline ml-1">
-                <p className="text-sm text-gray-500 text-center">
+                <span className="text-sm text-gray-500 text-center">
                   Créez votre compte pour générer vos liens d'affiliation
-                </p>
+                </span>
               </a>
             </div>
           ) : (
