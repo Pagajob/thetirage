@@ -98,12 +98,17 @@ async function handleEvent(event: Stripe.Event) {
           amount_subtotal,
           amount_total,
           currency,
-          discount,
         } = stripeData as Stripe.Checkout.Session;
 
         console.log(`Processing payment for session: ${checkout_session_id}`);
-        console.log('Discount info:', discount);
 
+        // Récupérer la session complète avec les détails du discount
+        const fullSession = await stripe.checkout.sessions.retrieve(checkout_session_id, {
+          expand: ['discount.promotion_code']
+        });
+
+        console.log('Full session discount info:', fullSession.discount);
+        console.log('Promotion code details:', fullSession.discount?.promotion_code);
         // Insert the order into the stripe_orders table
         const { error: orderError } = await supabase.from('stripe_orders').insert({
           checkout_session_id,
@@ -127,9 +132,13 @@ async function handleEvent(event: Stripe.Event) {
         await sendParticipationConfirmationEmail(checkout_session_id, customerId);
 
         // Traiter la commission d'affiliation si un code promo a été utilisé
-        if (discount?.promotion_code) {
-          console.log(`Processing affiliate commission for promotion code: ${discount.promotion_code}`);
-          await processAffiliateCommission(checkout_session_id, discount.promotion_code, amount_total || 0);
+        if (fullSession.discount?.promotion_code) {
+          const promotionCodeId = typeof fullSession.discount.promotion_code === 'string' 
+            ? fullSession.discount.promotion_code 
+            : fullSession.discount.promotion_code.id;
+          
+          console.log(`Processing affiliate commission for promotion code: ${promotionCodeId}`);
+          await processAffiliateCommission(checkout_session_id, promotionCodeId, amount_total || 0);
         } else {
           console.log('No promotion code used in this transaction');
         }
