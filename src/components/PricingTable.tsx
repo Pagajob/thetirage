@@ -10,7 +10,7 @@ const PricingTable: React.FC<PricingTableProps> = ({ affiliateCode, showHeader =
   const { t } = useTranslation();
   
   return (
-    <section id="pricing" className="py-20" style={{ backgroundColor: '#2848ca' }}>
+    <section id="pricing" className="py-20" style={{ backgroundColor: '#ffccec' }}>
       <div className="max-w-7xl mx-auto px-4">
         {showHeader && (
           <div className="text-center mb-16 text-white">
