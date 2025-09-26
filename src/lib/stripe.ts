@@ -35,8 +35,8 @@ export async function createCheckoutSession(
         },
         body: JSON.stringify({
           price_id: priceId,
-          success_url: `https://thetirage.com/success?session_id={CHECKOUT_SESSION_ID}${affiliateCode ? `&ref=${affiliateCode}` : ''}`,
-          cancel_url: `https://thetirage.com/`,
+          success_url: `${window.location.origin}/success?session_id={CHECKOUT_SESSION_ID}${affiliateCode ? `&ref=${affiliateCode}` : ''}`,
+          cancel_url: `${window.location.origin}/`,
           mode: 'payment',
           metadata: affiliateCode ? { affiliate_code: affiliateCode } : undefined
         }),

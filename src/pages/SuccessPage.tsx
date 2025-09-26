@@ -1,23 +1,28 @@
 import React, { useEffect, useState } from 'react';
 import { useTranslation } from 'react-i18next';
-import { useSearchParams, Link } from 'react-router-dom';
+import { useSearchParams, Link, useNavigate } from 'react-router-dom';
 import { CircleCheck as CheckCircle, Mail, Calendar, Share2, ArrowRight } from 'lucide-react';
 import LanguageSelector from '../components/LanguageSelector';
 import { getUserTickets, type Ticket } from '../lib/supabase';
 
 const SuccessPage: React.FC = () => {
   const { t } = useTranslation();
+  const navigate = useNavigate();
   const [searchParams] = useSearchParams();
   const sessionId = searchParams.get('session_id');
   const refCode = searchParams.get('ref');
   const [showConfetti, setShowConfetti] = useState(true);
   const [userTickets, setUserTickets] = useState<Ticket[]>([]);
   const [customerEmail, setCustomerEmail] = useState<string>('');
+  const [countdown, setCountdown] = useState(10);
+  const [showCountdown, setShowCountdown] = useState(false);
 
   useEffect(() => {
     // Hide confetti after 3 seconds
     const timer = setTimeout(() => {
       setShowConfetti(false);
+      // Commencer le compte à rebours après les confettis
+      setShowCountdown(true);
     }, 3000);
 
     return () => clearTimeout(timer);
@@ -49,6 +54,24 @@ const SuccessPage: React.FC = () => {
 
     fetchUserTickets();
   }, [sessionId]);
+
+  // Compte à rebours pour la redirection
+  useEffect(() => {
+    if (!showCountdown) return;
+
+    const interval = setInterval(() => {
+      setCountdown((prev) => {
+        if (prev <= 1) {
+          // Rediriger vers la page d'accueil
+          navigate('/');
+          return 0;
+        }
+        return prev - 1;
+      });
+    }, 1000);
+
+    return () => clearInterval(interval);
+  }, [showCountdown, navigate]);
 
   const shareOnSocial = (platform: string) => {
     const text = t('success.shareText', { 
@@ -212,6 +235,20 @@ const SuccessPage: React.FC = () => {
 
         {/* CTA */}
         <div className="space-y-4">
+          {showCountdown && (
+            <div className="bg-blue-50 border border-blue-200 rounded-lg p-4 mb-6 text-center">
+              <p className="text-blue-800 font-medium">
+                🔄 Redirection automatique dans <span className="font-bold text-blue-600">{countdown}</span> secondes...
+              </p>
+              <button
+                onClick={() => navigate('/')}
+                className="mt-2 text-blue-600 hover:text-blue-800 underline text-sm"
+              >
+                Rediriger maintenant
+              </button>
+            </div>
+          )}
+          
           <Link
             to="/"
             className="inline-flex items-center bg-blue-600 hover:bg-blue-700 text-white px-8 py-4 rounded-full font-bold text-lg transition-all transform hover:scale-105"
