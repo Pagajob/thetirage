@@ -22,7 +22,7 @@ const LandingPage: React.FC = () => {
   }, [refCode]);
 
   return (
-    <div className="min-h-screen" style={{ backgroundColor: '#2848ca' }}>
+    <div className="min-h-screen" style={{ backgroundColor: '#ffccec' }}>
       <LanguageSelector />
       <HeroSection affiliateCode={affiliateCode} />
       <PricingTable affiliateCode={affiliateCode} showHeader={false} />
