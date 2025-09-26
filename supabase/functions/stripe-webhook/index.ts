@@ -135,52 +135,7 @@ async function handleEvent(event: Stripe.Event) {
         await generateAndSaveTickets(checkout_session_id, customerId, amount_total || 0);
 
         // Traiter la commission d'affiliation si un code promo a été utilisé
-        // Vérifier les codes promo de plusieurs façons
-        let promotionCodeId = null;
-        
-        // Méthode 1: Via discount direct sur la session
-        if (fullSession.discount?.promotion_code) {
-          if (typeof fullSession.discount.promotion_code === 'string') {
-            promotionCodeId = fullSession.discount.promotion_code;
-          } else if (fullSession.discount.promotion_code.id) {
-            promotionCodeId = fullSession.discount.promotion_code.id;
-          }
-        }
-        
-        // Méthode 2: Via total_details.breakdown.discounts
-        if (!promotionCodeId && fullSession.total_details?.breakdown?.discounts) {
-          for (const discount of fullSession.total_details.breakdown.discounts) {
-            if (discount.discount?.promotion_code) {
-              if (typeof discount.discount.promotion_code === 'string') {
-                promotionCodeId = discount.discount.promotion_code;
-              } else if (discount.discount.promotion_code.id) {
-                promotionCodeId = discount.discount.promotion_code.id;
-              }
-              break;
-            }
-          }
-        }
-        
-        // Méthode 3: Rechercher par code promo dans les métadonnées
-        if (!promotionCodeId) {
-          try {
-            const promotionCodes = await stripe.promotionCodes.list({
-              limit: 100,
-              active: true,
-            });
-            
-            // Chercher si une session récente correspond à un code promo
-            for (const promoCode of promotionCodes.data) {
-              if (promoCode.code === 'ALLAN2024') {
-                promotionCodeId = promoCode.id;
-                console.log(`Found ALLAN2024 promotion code: ${promotionCodeId}`);
-                break;
-              }
-            }
-          } catch (error) {
-            console.error('Error searching promotion codes:', error);
-          }
-        }
+        await processAffiliateCommission(checkout_session_id, customerId, amount_total || 0);
         
         if (promotionCodeId) {
           console.log(`Processing affiliate commission for promotion code: ${promotionCodeId}`);
@@ -442,69 +397,98 @@ async function sendParticipationConfirmationEmail(checkoutSessionId: string, cus
   }
 }
 
-async function processAffiliateCommission(checkoutSessionId: string, promotionCodeId: string, amountTotal: number) {
+async function processAffiliateCommission(checkoutSessionId: string, customerId: string, amountTotal: number) {
   try {
-    console.log(`Processing affiliate commission for session: ${checkoutSessionId}, promotion code: ${promotionCodeId}`);
+    console.log(`Processing affiliate commission for session: ${checkoutSessionId}`);
     
-    // Récupérer le promoteur avec le promotion code ID ou par code promo direct
-    let { data: promoter, error: promoterError } = await supabase
-      .from('promoters')
-      .select('*')
-      .eq('stripe_promotion_code_id', promotionCodeId)
-      .single();
+    // Récupérer la session complète avec tous les détails
+    const fullSession = await stripe.checkout.sessions.retrieve(checkoutSessionId, {
+      expand: [
+        'discount.promotion_code',
+        'total_details.breakdown.discounts',
+        'line_items.data.price'
+      ]
+    });
 
-    // Si pas trouvé par ID Stripe, essayer par code promo direct
-    if (promoterError || !promoter) {
-      console.log('Promoter not found by stripe_promotion_code_id, trying by promo_code...');
-      
-      // Récupérer le code promo depuis Stripe
-      try {
-        const stripePromoCode = await stripe.promotionCodes.retrieve(promotionCodeId);
-        console.log('Stripe promo code details:', stripePromoCode);
-        
-        if (stripePromoCode.code) {
-          const { data: promoterByCode, error: promoterByCodeError } = await supabase
-            .from('promoters')
-            .select('*')
-            .eq('promo_code', stripePromoCode.code)
-            .single();
-            
-          if (!promoterByCodeError && promoterByCode) {
-            promoter = promoterByCode;
-            promoterError = null;
-            
-            // Mettre à jour le stripe_promotion_code_id pour les prochaines fois
-            await supabase
-              .from('promoters')
-              .update({ stripe_promotion_code_id: promotionCodeId })
-              .eq('id', promoter.id);
-              
-            console.log('Updated promoter with stripe_promotion_code_id');
+    console.log('Full session data:', JSON.stringify({
+      id: fullSession.id,
+      discount: fullSession.discount,
+      total_details: fullSession.total_details
+    }, null, 2));
+
+    // Vérifier les codes promo de plusieurs façons
+    let promotionCodeUsed = null;
+    let promotionCodeId = null;
+    
+    // Méthode 1: Via discount direct sur la session
+    if (fullSession.discount?.promotion_code) {
+      if (typeof fullSession.discount.promotion_code === 'string') {
+        promotionCodeId = fullSession.discount.promotion_code;
+      } else if (fullSession.discount.promotion_code.id) {
+        promotionCodeId = fullSession.discount.promotion_code.id;
+        promotionCodeUsed = fullSession.discount.promotion_code.code;
+      }
+      console.log('Found promotion code via discount:', { promotionCodeId, promotionCodeUsed });
+    }
+    
+    // Méthode 2: Via total_details.breakdown.discounts
+    if (!promotionCodeId && fullSession.total_details?.breakdown?.discounts) {
+      for (const discount of fullSession.total_details.breakdown.discounts) {
+        if (discount.discount?.promotion_code) {
+          if (typeof discount.discount.promotion_code === 'string') {
+            promotionCodeId = discount.discount.promotion_code;
+          } else if (discount.discount.promotion_code.id) {
+            promotionCodeId = discount.discount.promotion_code.id;
+            promotionCodeUsed = discount.discount.promotion_code.code;
           }
+          console.log('Found promotion code via breakdown:', { promotionCodeId, promotionCodeUsed });
+          break;
         }
-      } catch (stripeError) {
-        console.error('Error fetching promotion code from Stripe:', stripeError);
       }
     }
+    
+    // Si aucun code promo détecté, arrêter ici
+    if (!promotionCodeId && !promotionCodeUsed) {
+      console.log('No promotion code found in this transaction');
+      return;
+    }
+    
+    // Si on a l'ID mais pas le code, récupérer le code depuis Stripe
+    if (promotionCodeId && !promotionCodeUsed) {
+      try {
+        const stripePromoCode = await stripe.promotionCodes.retrieve(promotionCodeId);
+        promotionCodeUsed = stripePromoCode.code;
+        console.log('Retrieved promotion code from Stripe:', promotionCodeUsed);
+      } catch (error) {
+        console.error('Error retrieving promotion code from Stripe:', error);
+        return;
+      }
+    }
+    
+    // Rechercher le promoteur par code promo
+    const { data: promoter, error: promoterError } = await supabase
+      .from('promoters')
+      .select('*')
+      .eq('promo_code', promotionCodeUsed)
+      .single();
 
     if (promoterError || !promoter) {
-      console.error('Promoter not found for promotion code:', promotionCodeId, promoterError);
+      console.log(`No promoter found for code: ${promotionCodeUsed}`, promoterError);
       return;
     }
 
-    console.log('Found promoter:', promoter);
-
-    // Récupérer les détails de la session pour connaître le produit
-    const session = await stripe.checkout.sessions.retrieve(checkoutSessionId, {
-      expand: ['line_items.data.price']
+    console.log(`Found promoter for code ${promotionCodeUsed}:`, {
+      id: promoter.id,
+      promo_code: promoter.promo_code,
+      current_sales: promoter.total_sales
     });
 
-    if (!session.line_items?.data[0]) {
+    if (!fullSession.line_items?.data[0]) {
       console.error('No line items found in session');
       return;
     }
 
-    const priceId = session.line_items.data[0].price?.id;
+    const priceId = fullSession.line_items.data[0].price?.id;
     let commissionRate = 0;
     let productName = 'Ticket Thetirage';
 
@@ -534,7 +518,7 @@ async function processAffiliateCommission(checkoutSessionId: string, promotionCo
     console.log(`Commission calculation: ${amountInEuros}€ * ${commissionRate}% = ${commissionAmount}€`);
 
     // Récupérer l'email du client
-    const customerEmail = session.customer_details?.email || null;
+    const customerEmail = fullSession.customer_details?.email || null;
 
     // Vérifier si cette vente n'a pas déjà été enregistrée
     const { data: existingSale, error: checkError } = await supabase
@@ -573,9 +557,9 @@ async function processAffiliateCommission(checkoutSessionId: string, promotionCo
     console.log('Affiliate sale recorded successfully');
 
     // Mettre à jour les statistiques du promoteur
-    const newTotalSales = (parseFloat(promoter.total_sales) || 0) + 1;
-    const newTotalRevenue = (parseFloat(promoter.total_revenue) || 0) + amountInEuros;
-    const newTotalCommission = (parseFloat(promoter.total_commission) || 0) + commissionAmount;
+    const newTotalSales = (promoter.total_sales || 0) + 1;
+    const newTotalRevenue = (parseFloat(promoter.total_revenue?.toString() || '0')) + amountInEuros;
+    const newTotalCommission = (parseFloat(promoter.total_commission?.toString() || '0')) + commissionAmount;
 
     const { error: updateError } = await supabase
       .from('promoters')
