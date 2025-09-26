@@ -29,10 +29,9 @@ const LandingPage: React.FC = () => {
       <PricingTable affiliateCode={affiliateCode} showHeader={false} />
       <HowItWorks />
       <StatsCounter />
-      <AdSenseBanner />
+      <AdSenseBanner slot="3752369405" />
       <PricingTable affiliateCode={affiliateCode} />
       <SocialProof />
-      <AdSenseBanner />
       <FAQ />
       <Footer affiliateCode={affiliateCode} />
     </div>

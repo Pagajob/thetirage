@@ -6,7 +6,11 @@ declare global {
   }
 }
 
-const AdSenseBanner: React.FC = () => {
+interface AdSenseBannerProps {
+  slot: string;
+}
+
+const AdSenseBanner: React.FC<AdSenseBannerProps> = ({ slot }) => {
   useEffect(() => {
     try {
       (window.adsbygoogle = window.adsbygoogle || []).push({});
@@ -21,7 +25,7 @@ const AdSenseBanner: React.FC = () => {
         className="adsbygoogle"
         style={{ display: 'block' }}
         data-ad-client="ca-pub-5280795861742271"
-        data-ad-slot="3752369405"
+        data-ad-slot={slot}
         data-ad-format="auto"
         data-full-width-responsive="true"
       />
