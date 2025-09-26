@@ -58,37 +58,63 @@ export interface Ticket {
   ticket_code: string;
   session_id: string;
   ticket_type: 'Bronze' | 'Silver' | 'Gold';
-  amount_paid: number;
+  amount_paid?: number;
   created_at: string;
-  is_winner: boolean;
+  is_winner?: boolean;
   draw_date: string;
 }
 
 // Fonction pour récupérer les tickets d'un utilisateur par email
 export async function getUserTickets(email: string): Promise<Ticket[]> {
-  const { data, error } = await supabase
-    .from('tickets')
-    .select('*')
-    .eq('email', email)
-    .order('created_at', { ascending: false });
+  try {
+    // Sélectionner uniquement les colonnes nécessaires
+    const { data, error } = await supabase
+      .from('tickets')
+      .select('id, email, ticket_code, session_id, ticket_type, amount_paid, created_at, is_winner, draw_date')
+      .eq('email', email)
+      .order('created_at', { ascending: false });
 
-  if (error) {
-    console.error('Error fetching user tickets:', error);
+    if (error) {
+      console.error('Error fetching user tickets:', error);
+      return [];
+    }
+
+    return data || [];
+  } catch (error) {
+    console.error('Error in getUserTickets:', error);
     return [];
   }
-
-  return data || [];
 }
 
 // Fonction pour récupérer les statistiques des tickets
 export async function getTicketStats() {
-  const { data, error } = await supabase
-    .from('tickets')
-    .select('ticket_type, created_at')
-    .gte('draw_date', new Date().toISOString().split('T')[0]); // Tickets du mois en cours
+  try {
+    // Récupérer uniquement les colonnes nécessaires pour éviter les jointures
+    const { data, error } = await supabase
+      .from('tickets')
+      .select('ticket_type, created_at, draw_date')
+      .gte('draw_date', new Date().toISOString().split('T')[0]); // Tickets du mois en cours
 
-  if (error) {
-    console.error('Error fetching ticket stats:', error);
+    if (error) {
+      console.error('Error fetching ticket stats:', error);
+      return {
+        totalTickets: 0,
+        bronzeTickets: 0,
+        silverTickets: 0,
+        goldTickets: 0
+      };
+    }
+
+    const stats = {
+      totalTickets: data?.length || 0,
+      bronzeTickets: data?.filter(t => t.ticket_type === 'Bronze').length || 0,
+      silverTickets: data?.filter(t => t.ticket_type === 'Silver').length || 0,
+      goldTickets: data?.filter(t => t.ticket_type === 'Gold').length || 0
+    };
+
+    return stats;
+  } catch (error) {
+    console.error('Error in getTicketStats:', error);
     return {
       totalTickets: 0,
       bronzeTickets: 0,
@@ -96,13 +122,4 @@ export async function getTicketStats() {
       goldTickets: 0
     };
   }
-
-  const stats = {
-    totalTickets: data.length,
-    bronzeTickets: data.filter(t => t.ticket_type === 'Bronze').length,
-    silverTickets: data.filter(t => t.ticket_type === 'Silver').length,
-    goldTickets: data.filter(t => t.ticket_type === 'Gold').length
-  };
-
-  return stats;
 }
