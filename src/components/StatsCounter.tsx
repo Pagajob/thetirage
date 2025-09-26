@@ -21,14 +21,23 @@ const StatsCounter: React.FC = () => {
   useEffect(() => {
     const fetchParticipations = async () => {
       try {
-        // Récupérer les statistiques des tickets directement
-        const ticketStats = await getTicketStats();
-        const baseParticipations = 147; // Base de participants existants
-        
-        // Chaque ticket = 1 participation (les tickets sont déjà générés selon le type)
-        const totalParticipations = baseParticipations + ticketStats.totalTickets;
+        // Compter le nombre total de tickets dans la base de données
+        const { data: tickets, error } = await supabase
+          .from('tickets')
+          .select('id', { count: 'exact' });
+
+        if (error) {
+          console.error('Error fetching tickets count:', error);
+          return;
+        }
+
+        // Base de 147 participants + nouveaux participants (tickets)
+        const baseParticipations = 147;
+        const newParticipants = tickets?.length || 0;
+        const totalParticipations = baseParticipations + newParticipants;
         
         setParticipations(totalParticipations);
+        console.log(`Participants: ${baseParticipations} (base) + ${newParticipants} (nouveaux) = ${totalParticipations}`);
       } catch (error) {
         console.error('Error fetching participations:', error);
       }
