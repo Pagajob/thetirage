@@ -297,7 +297,7 @@ async function sendParticipationConfirmationEmail(checkoutSessionId: string, cus
           .container { max-width: 600px; margin: 0 auto; padding: 20px; }
           .header { background: linear-gradient(135deg, #2848ca, #4f46e5); color: white; padding: 30px; text-align: center; border-radius: 10px 10px 0 0; }
           .content { background: white; padding: 30px; border: 1px solid #e5e7eb; }
-          .footer { background: #f9fafb; padding: 20px; text-align: center; border-radius: 0 0 10px 10px; font-size: 14px; color: #6b7280; }
+          .footer { background: #ffccec; padding: 20px; text-align: center; border-radius: 0 0 10px 10px; font-size: 14px; color: #6b7280; }
           .ticket-info { background: #fef3c7; border: 2px solid #f59e0b; border-radius: 10px; padding: 20px; margin: 20px 0; }
           .participation-number { background: #dbeafe; border: 2px solid #3b82f6; border-radius: 10px; padding: 15px; margin: 20px 0; text-align: center; }
           .cta-button { display: inline-block; background: #2848ca; color: white; padding: 15px 30px; text-decoration: none; border-radius: 25px; font-weight: bold; margin: 20px 0; }
