@@ -458,4 +458,275 @@ const PromoterPage: React.FC = () => {
             </div>
           ) : (
             <div className="space-y-6">
-              {/* Code Promo Display
+              {/* Code Promo Display */}
+              <div className="bg-gray-50 p-4 rounded-lg">
+                <label className="block text-sm font-medium text-gray-700 mb-2">
+                  Votre code promoteur
+                </label>
+                <div className="flex items-center space-x-2">
+                  <input
+                    type="text"
+                    value={promoCode}
+                    readOnly
+                    className="flex-1 px-4 py-3 bg-white border border-gray-300 rounded-lg font-mono text-lg"
+                  />
+                  <button
+                    onClick={() => copyToClipboard(promoCode, 'Code promo copié !')}
+                    className="px-4 py-3 bg-blue-600 text-white rounded-lg hover:bg-blue-700 transition-colors flex items-center"
+                  >
+                    <Copy className="h-5 w-5" />
+                  </button>
+                </div>
+              </div>
+
+              {/* Lien d'affiliation */}
+              <div className="bg-gray-50 p-4 rounded-lg">
+                <label className="block text-sm font-medium text-gray-700 mb-2">
+                  Votre lien d'affiliation
+                </label>
+                <div className="flex items-center space-x-2">
+                  <input
+                    type="text"
+                    value={generatedLink}
+                    readOnly
+                    className="flex-1 px-4 py-3 bg-white border border-gray-300 rounded-lg text-sm"
+                  />
+                  <button
+                    onClick={() => copyToClipboard(generatedLink, 'Lien copié !')}
+                    className="px-4 py-3 bg-blue-600 text-white rounded-lg hover:bg-blue-700 transition-colors flex items-center"
+                  >
+                    <Copy className="h-5 w-5" />
+                  </button>
+                  <a
+                    href={generatedLink}
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    className="px-4 py-3 bg-green-600 text-white rounded-lg hover:bg-green-700 transition-colors flex items-center"
+                  >
+                    <ExternalLink className="h-5 w-5" />
+                  </a>
+                </div>
+              </div>
+
+              {/* Actions */}
+              <div className="flex space-x-4">
+                <button
+                  onClick={() => setShowStats(!showStats)}
+                  className="flex-1 bg-purple-600 text-white py-3 px-6 rounded-lg font-semibold hover:bg-purple-700 transition-colors flex items-center justify-center"
+                >
+                  {showStats ? <EyeOff className="h-5 w-5 mr-2" /> : <Eye className="h-5 w-5 mr-2" />}
+                  {showStats ? 'Masquer les stats' : 'Voir mes stats'}
+                </button>
+                
+                <button
+                  onClick={() => setShowBankingInfo(true)}
+                  className="flex-1 bg-orange-600 text-white py-3 px-6 rounded-lg font-semibold hover:bg-orange-700 transition-colors flex items-center justify-center"
+                >
+                  <Euro className="h-5 w-5 mr-2" />
+                  Infos bancaires
+                </button>
+              </div>
+            </div>
+          )}
+        </div>
+
+        {/* Detailed Stats */}
+        {showStats && stats && (
+          <div className="bg-white p-8 rounded-xl shadow-lg border border-gray-100 mb-8">
+            <h2 className="text-2xl font-bold text-gray-900 mb-6">
+              Statistiques détaillées
+            </h2>
+            
+            <div className="grid md:grid-cols-2 gap-6 mb-8">
+              <div className="bg-blue-50 p-6 rounded-lg">
+                <h3 className="text-lg font-semibold text-blue-900 mb-4">
+                  Taux de commission
+                </h3>
+                <p className="text-3xl font-bold text-blue-600">
+                  {stats.stats.commission_rate}%
+                </p>
+              </div>
+              
+              <div className="bg-green-50 p-6 rounded-lg">
+                <h3 className="text-lg font-semibold text-green-900 mb-4">
+                  Statut
+                </h3>
+                <p className="text-lg font-semibold text-green-600">
+                  {stats.stats.is_active ? 'Actif' : 'Inactif'}
+                </p>
+              </div>
+            </div>
+
+            {/* Recent Sales */}
+            {stats.recent_sales && stats.recent_sales.length > 0 && (
+              <div>
+                <h3 className="text-lg font-semibold text-gray-900 mb-4">
+                  Ventes récentes
+                </h3>
+                <div className="overflow-x-auto">
+                  <table className="w-full border-collapse border border-gray-200">
+                    <thead>
+                      <tr className="bg-gray-50">
+                        <th className="border border-gray-200 px-4 py-2 text-left">Date</th>
+                        <th className="border border-gray-200 px-4 py-2 text-left">Produit</th>
+                        <th className="border border-gray-200 px-4 py-2 text-left">Montant</th>
+                        <th className="border border-gray-200 px-4 py-2 text-left">Commission</th>
+                      </tr>
+                    </thead>
+                    <tbody>
+                      {stats.recent_sales.map((sale: any, index: number) => (
+                        <tr key={index} className="hover:bg-gray-50">
+                          <td className="border border-gray-200 px-4 py-2">
+                            {formatDate(sale.created_at)}
+                          </td>
+                          <td className="border border-gray-200 px-4 py-2">
+                            {sale.product_name || 'Ticket Thetirage'}
+                          </td>
+                          <td className="border border-gray-200 px-4 py-2">
+                            {formatCurrency(parseFloat(sale.amount))}
+                          </td>
+                          <td className="border border-gray-200 px-4 py-2 font-semibold text-green-600">
+                            {formatCurrency(parseFloat(sale.commission_amount))}
+                          </td>
+                        </tr>
+                      ))}
+                    </tbody>
+                  </table>
+                </div>
+              </div>
+            )}
+          </div>
+        )}
+
+        {/* Banking Info Modal */}
+        {showBankingInfo && (
+          <div className="fixed inset-0 bg-black bg-opacity-50 flex items-center justify-center p-4 z-50">
+            <div className="bg-white rounded-xl shadow-xl max-w-md w-full max-h-[90vh] overflow-y-auto">
+              <div className="p-6">
+                <h2 className="text-2xl font-bold text-gray-900 mb-6">
+                  Informations bancaires
+                </h2>
+                
+                <div className="space-y-4">
+                  <div>
+                    <label className="block text-sm font-medium text-gray-700 mb-2">
+                      IBAN *
+                    </label>
+                    <input
+                      type="text"
+                      value={bankingInfo.iban}
+                      onChange={(e) => setBankingInfo({...bankingInfo, iban: e.target.value})}
+                      className="w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-transparent"
+                      placeholder="FR76 1234 5678 9012 3456 7890 123"
+                    />
+                  </div>
+                  
+                  <div className="grid grid-cols-2 gap-4">
+                    <div>
+                      <label className="block text-sm font-medium text-gray-700 mb-2">
+                        Prénom *
+                      </label>
+                      <input
+                        type="text"
+                        value={bankingInfo.firstName}
+                        onChange={(e) => setBankingInfo({...bankingInfo, firstName: e.target.value})}
+                        className="w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-transparent"
+                      />
+                    </div>
+                    
+                    <div>
+                      <label className="block text-sm font-medium text-gray-700 mb-2">
+                        Nom *
+                      </label>
+                      <input
+                        type="text"
+                        value={bankingInfo.lastName}
+                        onChange={(e) => setBankingInfo({...bankingInfo, lastName: e.target.value})}
+                        className="w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-transparent"
+                      />
+                    </div>
+                  </div>
+                  
+                  <div>
+                    <label className="block text-sm font-medium text-gray-700 mb-2">
+                      Adresse *
+                    </label>
+                    <input
+                      type="text"
+                      value={bankingInfo.address}
+                      onChange={(e) => setBankingInfo({...bankingInfo, address: e.target.value})}
+                      className="w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-transparent"
+                    />
+                  </div>
+                  
+                  <div className="grid grid-cols-2 gap-4">
+                    <div>
+                      <label className="block text-sm font-medium text-gray-700 mb-2">
+                        Ville *
+                      </label>
+                      <input
+                        type="text"
+                        value={bankingInfo.city}
+                        onChange={(e) => setBankingInfo({...bankingInfo, city: e.target.value})}
+                        className="w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-transparent"
+                      />
+                    </div>
+                    
+                    <div>
+                      <label className="block text-sm font-medium text-gray-700 mb-2">
+                        Code postal *
+                      </label>
+                      <input
+                        type="text"
+                        value={bankingInfo.postalCode}
+                        onChange={(e) => setBankingInfo({...bankingInfo, postalCode: e.target.value})}
+                        className="w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-transparent"
+                      />
+                    </div>
+                  </div>
+                  
+                  <div>
+                    <label className="block text-sm font-medium text-gray-700 mb-2">
+                      Pays *
+                    </label>
+                    <select
+                      value={bankingInfo.country}
+                      onChange={(e) => setBankingInfo({...bankingInfo, country: e.target.value})}
+                      className="w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-transparent"
+                    >
+                      <option value="FR">France</option>
+                      <option value="BE">Belgique</option>
+                      <option value="CH">Suisse</option>
+                      <option value="CA">Canada</option>
+                    </select>
+                  </div>
+                </div>
+                
+                <div className="flex space-x-4 mt-6">
+                  <button
+                    onClick={() => setShowBankingInfo(false)}
+                    className="flex-1 px-6 py-3 border border-gray-300 text-gray-700 rounded-lg hover:bg-gray-50 transition-colors"
+                  >
+                    Annuler
+                  </button>
+                  <button
+                    onClick={saveBankingInfo}
+                    disabled={bankingLoading}
+                    className="flex-1 bg-blue-600 text-white px-6 py-3 rounded-lg font-semibold hover:bg-blue-700 transition-colors disabled:opacity-50 flex items-center justify-center"
+                  >
+                    {bankingLoading ? (
+                      <div className="animate-spin rounded-full h-5 w-5 border-b-2 border-white mr-2"></div>
+                    ) : null}
+                    Sauvegarder
+                  </button>
+                </div>
+              </div>
+            </div>
+          </div>
+        )}
+      </div>
+    </div>
+  );
+};
+
+export default PromoterPage;
