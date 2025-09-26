@@ -420,6 +420,46 @@ const PromoterPage: React.FC = () => {
           </div>
         </div>
 
+        {/* How It Works Section */}
+        <div className="bg-white p-8 rounded-xl shadow-lg border border-gray-100 mb-8">
+          <h2 className="text-2xl font-bold text-gray-900 mb-6">
+            {t('promoter.howItWorksTitle')}
+          </h2>
+          
+          <div className="grid md:grid-cols-3 gap-6 mb-8">
+            <div className="bg-amber-50 border border-amber-200 rounded-lg p-6 text-center">
+              <div className="text-amber-600 font-bold text-lg mb-2">{t('promoter.bronze')}</div>
+              <div className="text-3xl font-bold text-gray-900 mb-2">0,90€</div>
+              <div className="text-sm text-gray-600">{t('promoter.perSale')}</div>
+            </div>
+            <div className="bg-gray-50 border border-gray-200 rounded-lg p-6 text-center">
+              <div className="text-gray-600 font-bold text-lg mb-2">{t('promoter.silver')}</div>
+              <div className="text-3xl font-bold text-gray-900 mb-2">3,00€</div>
+              <div className="text-sm text-gray-600">{t('promoter.perSale')}</div>
+            </div>
+            <div className="bg-yellow-50 border border-yellow-200 rounded-lg p-6 text-center ring-2 ring-yellow-400">
+              <div className="text-yellow-600 font-bold text-lg mb-2">{t('promoter.gold')}</div>
+              <div className="text-3xl font-bold text-gray-900 mb-2">5,60€</div>
+              <div className="text-sm text-gray-600">{t('promoter.perSale')}</div>
+            </div>
+          </div>
+          
+          <div className="space-y-4">
+            <div className="flex items-start">
+              <div className="bg-blue-100 text-blue-600 rounded-full w-8 h-8 flex items-center justify-center font-bold mr-4 mt-1">1</div>
+              <p className="text-gray-700">{t('promoter.step1')}</p>
+            </div>
+            <div className="flex items-start">
+              <div className="bg-blue-100 text-blue-600 rounded-full w-8 h-8 flex items-center justify-center font-bold mr-4 mt-1">2</div>
+              <p className="text-gray-700">{t('promoter.step2')}</p>
+            </div>
+            <div className="flex items-start">
+              <div className="bg-blue-100 text-blue-600 rounded-full w-8 h-8 flex items-center justify-center font-bold mr-4 mt-1">3</div>
+              <p className="text-gray-700">{t('promoter.step3')}</p>
+            </div>
+          </div>
+        </div>
+
         {/* Promo Code Section */}
         <div className="bg-white p-8 rounded-xl shadow-lg border border-gray-100 mb-8">
           <h2 className="text-2xl font-bold text-gray-900 mb-6">
