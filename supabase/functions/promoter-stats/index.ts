@@ -93,9 +93,13 @@ Deno.serve(async (req) => {
     }
 
     // Calculer les statistiques
-    const totalSales = affiliateSales?.length || 0;
-    const totalRevenue = affiliateSales?.reduce((sum, sale) => sum + parseFloat(sale.amount.toString()), 0) || 0;
-    const totalCommission = affiliateSales?.reduce((sum, sale) => sum + parseFloat(sale.commission_amount.toString()), 0) || 0;
+    const dbTotalSales = parseFloat(promoter.total_sales) || 0;
+    const dbTotalRevenue = parseFloat(promoter.total_revenue) || 0;
+    const dbTotalCommission = parseFloat(promoter.total_commission) || 0;
+    
+    const calculatedTotalSales = affiliateSales?.length || 0;
+    const calculatedTotalRevenue = affiliateSales?.reduce((sum, sale) => sum + parseFloat(sale.amount.toString()), 0) || 0;
+    const calculatedTotalCommission = affiliateSales?.reduce((sum, sale) => sum + parseFloat(sale.commission_amount.toString()), 0) || 0;
 
     // Récupérer les statistiques depuis Stripe pour validation
     let stripeStats = {
@@ -147,9 +151,9 @@ Deno.serve(async (req) => {
         created_at: promoter.created_at,
       },
       stats: {
-        total_sales: Math.max(totalSales, stripeStats.usage_count),
-        total_revenue: Math.max(totalRevenue, stripeStats.total_amount),
-        total_commission: totalCommission,
+        total_sales: Math.max(dbTotalSales, calculatedTotalSales, stripeStats.usage_count),
+        total_revenue: Math.max(dbTotalRevenue, calculatedTotalRevenue, stripeStats.total_amount),
+        total_commission: Math.max(dbTotalCommission, calculatedTotalCommission),
         commission_rate: promoter.commission_rate,
       },
       recent_sales: affiliateSales?.slice(0, 10) || [],
