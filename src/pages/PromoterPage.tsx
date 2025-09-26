@@ -386,7 +386,7 @@ const PromoterPage: React.FC = () => {
           <div className="bg-white p-6 rounded-xl shadow-lg border border-gray-100">
             <div className="flex items-center justify-between">
               <div>
-                <p className="text-sm text-gray-600">{t('promoter.totalSales')}</p>
+                <p className="text-sm text-gray-600">Ventes totales</p>
                 <p className="text-3xl font-bold text-blue-600">
                   {stats?.stats.total_sales || 0}
                 </p>
@@ -398,7 +398,7 @@ const PromoterPage: React.FC = () => {
           <div className="bg-white p-6 rounded-xl shadow-lg border border-gray-100">
             <div className="flex items-center justify-between">
               <div>
-                <p className="text-sm text-gray-600">{t('promoter.totalRevenue')}</p>
+                <p className="text-sm text-gray-600">Chiffre d'affaires</p>
                 <p className="text-3xl font-bold text-green-600">
                   {formatCurrency(stats?.stats.total_revenue || 0)}
                 </p>
@@ -410,7 +410,7 @@ const PromoterPage: React.FC = () => {
           <div className="bg-white p-6 rounded-xl shadow-lg border border-gray-100">
             <div className="flex items-center justify-between">
               <div>
-                <p className="text-sm text-gray-600">{t('promoter.totalEarnings')}</p>
+                <p className="text-sm text-gray-600">Commissions générées</p>
                 <p className="text-3xl font-bold text-purple-600">
                   {formatCurrency(stats?.stats.total_commission || 0)}
                 </p>
@@ -592,7 +592,7 @@ const PromoterPage: React.FC = () => {
                   Statut
                 </h3>
                 <p className="text-lg font-semibold text-green-600">
-                  {stats.stats.is_active ? 'Actif' : 'Inactif'}
+                  {stats.promoter.is_active ? 'Actif' : 'Inactif'}
                 </p>
               </div>
             </div>

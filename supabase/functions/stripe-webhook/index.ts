@@ -104,7 +104,7 @@ async function handleEvent(event: Stripe.Event) {
 
         // Récupérer la session complète avec les détails du discount
         const fullSession = await stripe.checkout.sessions.retrieve(checkout_session_id, {
-          expand: ['discount.promotion_code']
+          expand: ['discount.promotion_code', 'total_details.breakdown.discounts']
         });
 
         console.log('Full session discount info:', fullSession.discount);
@@ -135,13 +135,15 @@ async function handleEvent(event: Stripe.Event) {
         await generateAndSaveTickets(checkout_session_id, customerId, amount_total || 0);
 
         // Traiter la commission d'affiliation si un code promo a été utilisé
-        if (fullSession.discount?.promotion_code) {
-          const promotionCodeId = typeof fullSession.discount.promotion_code === 'string' 
-            ? fullSession.discount.promotion_code 
-            : fullSession.discount.promotion_code.id;
+        if (fullSession.total_details?.breakdown?.discounts && fullSession.total_details.breakdown.discounts.length > 0) {
+          // Récupérer le premier discount (code promo)
+          const discount = fullSession.total_details.breakdown.discounts[0];
+          const promotionCodeId = discount.discount?.promotion_code?.id;
           
-          console.log(`Processing affiliate commission for promotion code: ${promotionCodeId}`);
-          await processAffiliateCommission(checkout_session_id, promotionCodeId, amount_total || 0);
+          if (promotionCodeId) {
+            console.log(`Processing affiliate commission for promotion code: ${promotionCodeId}`);
+            await processAffiliateCommission(checkout_session_id, promotionCodeId, amount_total || 0);
+          }
         } else {
           console.log('No promotion code used in this transaction');
         }
@@ -401,10 +403,10 @@ async function processAffiliateCommission(checkoutSessionId: string, promotionCo
   try {
     console.log(`Processing affiliate commission for session: ${checkoutSessionId}, promotion code: ${promotionCodeId}`);
     
-    // Récupérer le promoteur directement depuis la base de données avec le promotion code ID
+    // Récupérer le promoteur avec le promotion code ID
     const { data: promoter, error: promoterError } = await supabase
       .from('promoters')
-      .select('id, promo_code, total_sales, total_revenue, total_commission')
+      .select('*')
       .eq('stripe_promotion_code_id', promotionCodeId)
       .single();
 
@@ -432,7 +434,7 @@ async function processAffiliateCommission(checkoutSessionId: string, promotionCo
     // Déterminer le taux de commission selon le produit
     switch (priceId) {
       case 'price_1SBHBREWa5JpT2nEQSe5Jx3e': // Bronze
-        commissionRate = 15; // 15%
+        commissionRate = 15; // 15% = 0,90€ sur 5,99€
         productName = 'Ticket Bronze';
         break;
       case 'price_1SBHCeEWa5JpT2nEJrt20BIh': // Silver
