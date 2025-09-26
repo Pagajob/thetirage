@@ -56,16 +56,21 @@ Deno.serve(async (req) => {
 async function handleEvent(event: Stripe.Event) {
   const stripeData = event?.data?.object ?? {};
 
+  console.log(`Processing event: ${event.type} with ID: ${event.id}`);
+
   if (!stripeData) {
+    console.log('No stripe data found in event');
     return;
   }
 
   if (!('customer' in stripeData)) {
+    console.log('No customer found in stripe data');
     return;
   }
 
   // for one time payments, we only listen for the checkout.session.completed event
   if (event.type === 'payment_intent.succeeded' && event.data.object.invoice === null) {
+    console.log('Skipping payment_intent.succeeded for one-time payment');
     return;
   }
 
@@ -91,6 +96,8 @@ async function handleEvent(event: Stripe.Event) {
       await syncCustomerFromStripe(customerId);
     } else if (mode === 'payment' && payment_status === 'paid') {
       try {
+        console.log(`Processing completed payment for session: ${stripeData.id}`);
+        
         // Extract the necessary information from the session
         const {
           id: checkout_session_id,
@@ -104,11 +111,20 @@ async function handleEvent(event: Stripe.Event) {
 
         // Récupérer la session complète avec les détails du discount
         const fullSession = await stripe.checkout.sessions.retrieve(checkout_session_id, {
-          expand: ['discount.promotion_code', 'total_details.breakdown.discounts']
+          expand: [
+            'discount.promotion_code',
+            'total_details.breakdown.discounts',
+            'line_items.data.price'
+          ]
         });
 
-        console.log('Full session discount info:', fullSession.discount);
-        console.log('Promotion code details:', fullSession.discount?.promotion_code);
+        console.log('Full session retrieved:', {
+          id: fullSession.id,
+          discount: fullSession.discount,
+          total_details: fullSession.total_details?.breakdown?.discounts,
+          customer_details: fullSession.customer_details?.email
+        });
+        
         // Insert the order into the stripe_orders table
         const { error: orderError } = await supabase.from('stripe_orders').insert({
           checkout_session_id,
@@ -137,15 +153,6 @@ async function handleEvent(event: Stripe.Event) {
         // Traiter la commission d'affiliation si un code promo a été utilisé
         await processAffiliateCommission(checkout_session_id, customerId, amount_total || 0);
         
-        if (promotionCodeId) {
-          console.log(`Processing affiliate commission for promotion code: ${promotionCodeId}`);
-          await processAffiliateCommission(checkout_session_id, promotionCodeId, amount_total || 0);
-        } else {
-          console.log('No promotion code found in this transaction');
-          console.log('Session discount:', JSON.stringify(fullSession.discount, null, 2));
-          console.log('Total details:', JSON.stringify(fullSession.total_details, null, 2));
-        }
-
         console.info(`Successfully processed one-time payment for session: ${checkout_session_id}`);
       } catch (error) {
         console.error('Error processing one-time payment:', error);
@@ -399,7 +406,7 @@ async function sendParticipationConfirmationEmail(checkoutSessionId: string, cus
 
 async function processAffiliateCommission(checkoutSessionId: string, customerId: string, amountTotal: number) {
   try {
-    console.log(`Processing affiliate commission for session: ${checkoutSessionId}`);
+    console.log(`🔍 Processing affiliate commission for session: ${checkoutSessionId}, amount: ${amountTotal}`);
     
     // Récupérer la session complète avec tous les détails
     const fullSession = await stripe.checkout.sessions.retrieve(checkoutSessionId, {
@@ -410,10 +417,11 @@ async function processAffiliateCommission(checkoutSessionId: string, customerId:
       ]
     });
 
-    console.log('Full session data:', JSON.stringify({
+    console.log('📋 Full session data for affiliate processing:', JSON.stringify({
       id: fullSession.id,
       discount: fullSession.discount,
-      total_details: fullSession.total_details
+      total_details: fullSession.total_details,
+      customer_details: fullSession.customer_details
     }, null, 2));
 
     // Vérifier les codes promo de plusieurs façons
@@ -428,7 +436,7 @@ async function processAffiliateCommission(checkoutSessionId: string, customerId:
         promotionCodeId = fullSession.discount.promotion_code.id;
         promotionCodeUsed = fullSession.discount.promotion_code.code;
       }
-      console.log('Found promotion code via discount:', { promotionCodeId, promotionCodeUsed });
+      console.log('✅ Found promotion code via discount:', { promotionCodeId, promotionCodeUsed });
     }
     
     // Méthode 2: Via total_details.breakdown.discounts
@@ -441,15 +449,35 @@ async function processAffiliateCommission(checkoutSessionId: string, customerId:
             promotionCodeId = discount.discount.promotion_code.id;
             promotionCodeUsed = discount.discount.promotion_code.code;
           }
-          console.log('Found promotion code via breakdown:', { promotionCodeId, promotionCodeUsed });
+          console.log('✅ Found promotion code via breakdown:', { promotionCodeId, promotionCodeUsed });
           break;
         }
       }
     }
     
+    // Méthode 3: Rechercher tous les promotion codes récents si aucun trouvé
+    if (!promotionCodeId && !promotionCodeUsed) {
+      console.log('🔍 No promotion code found in session, checking recent promotion codes...');
+      try {
+        const recentPromoCodes = await stripe.promotionCodes.list({
+          limit: 50,
+          active: true
+        });
+        
+        console.log(`Found ${recentPromoCodes.data.length} active promotion codes`);
+        
+        // Pour debug, afficher tous les codes actifs
+        for (const promoCode of recentPromoCodes.data) {
+          console.log(`Active promo code: ${promoCode.code} (ID: ${promoCode.id})`);
+        }
+      } catch (error) {
+        console.error('Error fetching promotion codes:', error);
+      }
+    }
+    
     // Si aucun code promo détecté, arrêter ici
     if (!promotionCodeId && !promotionCodeUsed) {
-      console.log('No promotion code found in this transaction');
+      console.log('❌ No promotion code found in this transaction');
       return;
     }
     
@@ -458,7 +486,7 @@ async function processAffiliateCommission(checkoutSessionId: string, customerId:
       try {
         const stripePromoCode = await stripe.promotionCodes.retrieve(promotionCodeId);
         promotionCodeUsed = stripePromoCode.code;
-        console.log('Retrieved promotion code from Stripe:', promotionCodeUsed);
+        console.log('✅ Retrieved promotion code from Stripe:', promotionCodeUsed);
       } catch (error) {
         console.error('Error retrieving promotion code from Stripe:', error);
         return;
@@ -466,6 +494,7 @@ async function processAffiliateCommission(checkoutSessionId: string, customerId:
     }
     
     // Rechercher le promoteur par code promo
+    console.log(`🔍 Searching for promoter with code: ${promotionCodeUsed}`);
     const { data: promoter, error: promoterError } = await supabase
       .from('promoters')
       .select('*')
@@ -473,14 +502,23 @@ async function processAffiliateCommission(checkoutSessionId: string, customerId:
       .single();
 
     if (promoterError || !promoter) {
-      console.log(`No promoter found for code: ${promotionCodeUsed}`, promoterError);
+      console.log(`❌ No promoter found for code: ${promotionCodeUsed}`, promoterError);
+      
+      // Debug: lister tous les promoteurs actifs
+      const { data: allPromoters } = await supabase
+        .from('promoters')
+        .select('promo_code, user_id, is_active')
+        .eq('is_active', true);
+      
+      console.log('Active promoters in database:', allPromoters);
       return;
     }
 
-    console.log(`Found promoter for code ${promotionCodeUsed}:`, {
+    console.log(`✅ Found promoter for code ${promotionCodeUsed}:`, {
       id: promoter.id,
       promo_code: promoter.promo_code,
-      current_sales: promoter.total_sales
+      current_sales: promoter.total_sales,
+      is_active: promoter.is_active
     });
 
     if (!fullSession.line_items?.data[0]) {
@@ -515,7 +553,7 @@ async function processAffiliateCommission(checkoutSessionId: string, customerId:
     const amountInEuros = amountTotal / 100;
     const commissionAmount = (amountInEuros * commissionRate) / 100;
 
-    console.log(`Commission calculation: ${amountInEuros}€ * ${commissionRate}% = ${commissionAmount}€`);
+    console.log(`💰 Commission calculation: ${amountInEuros}€ * ${commissionRate}% = ${commissionAmount.toFixed(2)}€`);
 
     // Récupérer l'email du client
     const customerEmail = fullSession.customer_details?.email || null;
@@ -533,7 +571,7 @@ async function processAffiliateCommission(checkoutSessionId: string, customerId:
     }
 
     if (existingSale) {
-      console.log('Sale already recorded for session:', checkoutSessionId);
+      console.log('⚠️ Sale already recorded for session:', checkoutSessionId);
       return;
     }
 
@@ -554,7 +592,7 @@ async function processAffiliateCommission(checkoutSessionId: string, customerId:
       return;
     }
 
-    console.log('Affiliate sale recorded successfully');
+    console.log('✅ Affiliate sale recorded successfully');
 
     // Mettre à jour les statistiques du promoteur
     const newTotalSales = (promoter.total_sales || 0) + 1;
@@ -577,7 +615,7 @@ async function processAffiliateCommission(checkoutSessionId: string, customerId:
       return;
     }
 
-    console.log(`Promoter stats updated: ${newTotalSales} sales, ${newTotalRevenue}€ revenue, ${newTotalCommission}€ commission`);
+    console.log(`✅ Promoter stats updated: ${newTotalSales} sales, ${newTotalRevenue.toFixed(2)}€ revenue, ${newTotalCommission.toFixed(2)}€ commission`);
 
   } catch (error) {
     console.error('Error in processAffiliateCommission:', error);
