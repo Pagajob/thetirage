@@ -8,6 +8,7 @@ import StatsCounter from '../components/StatsCounter';
 import SocialProof from '../components/SocialProof';  
 import FAQ from '../components/FAQ';
 import Footer from '../components/Footer';
+import AdSenseBanner from '../components/AdSenseBanner';
 
 const LandingPage: React.FC = () => {
   const { refCode } = useParams();
@@ -28,8 +29,10 @@ const LandingPage: React.FC = () => {
       <PricingTable affiliateCode={affiliateCode} showHeader={false} />
       <HowItWorks />
       <StatsCounter />
+      <AdSenseBanner />
       <PricingTable affiliateCode={affiliateCode} />
       <SocialProof />
+      <AdSenseBanner />
       <FAQ />
       <Footer affiliateCode={affiliateCode} />
     </div>
