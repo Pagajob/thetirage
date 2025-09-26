@@ -5,7 +5,7 @@ import HeroSection from '../components/HeroSection';
 import HowItWorks from '../components/HowItWorks';
 import PricingTable from '../components/PricingTable';
 import StatsCounter from '../components/StatsCounter';
-import SocialProof from '../components/SocialProof';
+import SocialProof from '../components/SocialProof'; 
 import FAQ from '../components/FAQ';
 import Footer from '../components/Footer';
 
@@ -22,7 +22,7 @@ const LandingPage: React.FC = () => {
   }, [refCode]);
 
   return (
-    <div className="min-h-screen" style={{ backgroundColor: '#ffccec' }}>
+    <div className="min-h-screen" style={{ backgroundColor: '#2848ca' }}>
       <LanguageSelector />
       <HeroSection affiliateCode={affiliateCode} />
       <PricingTable affiliateCode={affiliateCode} showHeader={false} />
