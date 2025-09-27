@@ -12,15 +12,24 @@ interface AdSenseBannerProps {
 
 const AdSenseBanner: React.FC<AdSenseBannerProps> = ({ slot }) => {
   useEffect(() => {
-    try {
-      (window.adsbygoogle = window.adsbygoogle || []).push({});
-    } catch (err) {
-      console.error('AdSense error:', err);
-    }
+    const timer = setTimeout(() => {
+      try {
+        if (window.adsbygoogle && window.adsbygoogle.loaded) {
+          (window.adsbygoogle = window.adsbygoogle || []).push({});
+        } else {
+          // Fallback if adsbygoogle is not fully loaded
+          (window.adsbygoogle = window.adsbygoogle || []).push({});
+        }
+      } catch (err) {
+        console.error('AdSense error:', err);
+      }
+    }, 100);
+
+    return () => clearTimeout(timer);
   }, []);
 
   return (
-    <div className="w-full flex justify-center my-8">
+    <div className="w-full flex justify-center my-8 min-w-[320px]">
       <ins 
         className="adsbygoogle"
         style={{ display: 'block' }}
@@ -28,6 +37,7 @@ const AdSenseBanner: React.FC<AdSenseBannerProps> = ({ slot }) => {
         data-ad-slot={slot}
         data-ad-format="auto"
         data-full-width-responsive="true"
+        key={`adsense-${slot}`}
       />
     </div>
   );
