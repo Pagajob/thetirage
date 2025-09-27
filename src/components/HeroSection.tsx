@@ -73,7 +73,7 @@ const HeroSection: React.FC<HeroSectionProps> = ({ affiliateCode }) => {
                   className="w-96 h-auto drop-shadow-2xl"
                 />
                 <div className="absolute -top-6 -right-6 lg:-right-6 -right-2 bg-yellow-400 text-blue-900 px-4 lg:px-6 py-2 lg:py-3 rounded-full font-bold text-lg lg:text-xl shadow-xl text-center">
-                  Valeur 1 479 €
+                  <span className="block lg:inline">Valeur 1 479 €</span>
                 </div>
               </div>
             </div>
