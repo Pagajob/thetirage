@@ -46,7 +46,7 @@ const HeroSection: React.FC<HeroSectionProps> = ({ affiliateCode }) => {
             }}>
             </h1>
             
-            <p className="text-xl lg:text-2xl text-red-100 mb-8 leading-relaxed" dangerouslySetInnerHTML={{
+            <p className="text-xl lg:text-2xl text-blue-100 mb-8 leading-relaxed" dangerouslySetInnerHTML={{
               __html: t('hero.subtitle')
             }}>
             </p>
