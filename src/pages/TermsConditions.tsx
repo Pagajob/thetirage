@@ -43,7 +43,7 @@ const TermsConditions: React.FC = () => {
                 immatriculée au Registre du Commerce et des Sociétés de Lyon, dont le siège social est situé :
               </p>
               <div className="bg-white p-4 rounded-lg">
-                <p className="font-semibold text-gray-900 mb-2">MR TECHNOLOGIES SRL</p>
+                <p className="font-semibold text-gray-900 mb-2">AM TECHNOLOGIES SRL</p>
                 <p className="text-gray-700">Strada Londra 20, Bucharest, Romania</p>
                 <p className="text-gray-700">Capital social : <strong>100 000 €</strong></p>
                 <p className="text-gray-700">Représentée par <strong>Maria Adeni</strong></p>
