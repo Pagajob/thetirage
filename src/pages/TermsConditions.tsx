@@ -40,7 +40,7 @@ const TermsConditions: React.FC = () => {
             <div className="bg-blue-50 border-l-4 border-blue-600 p-4 mb-4">
               <p className="text-gray-700 leading-relaxed mb-4">
                 Le site <strong>Thetirage.com</strong> est édité et exploité par la société <strong>AM TECHNOLOGIES SR</strong>, 
-                immatriculée au National Trade Register Office de Bucarest, dont le siège social est situé :
+                immatriculée a l'Office national du registre du commerce de Bucarest, dont le siège social est situé :
               </p>
               <div className="bg-white p-4 rounded-lg">
                 <p className="font-semibold text-gray-900 mb-2">AM TECHNOLOGIES SRL</p>
