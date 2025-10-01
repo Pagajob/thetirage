@@ -39,7 +39,7 @@ const GameRules: React.FC = () => {
             </div>
             <div className="bg-blue-50 border-l-4 border-blue-600 p-4 mb-4">
               <p className="text-gray-700 leading-relaxed">
-                L'organisation Thetirage, représentée par la société PAGAJOB SASU organise chaque mois 
+                L'organisation Thetirage, représentée par la société AM TECHNOLOGIES SR organise chaque mois 
                 un jeu-concours accessible en ligne via le site https://thetirage.com. Le jeu est ouvert à 
                 toute personne majeure résidant en France métropolitaine ou dans un pays de l'union 
                 européenne et disposant d'une adresse e-mail valide.
