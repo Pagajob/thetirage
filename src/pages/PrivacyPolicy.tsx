@@ -39,7 +39,7 @@ const PrivacyPolicy: React.FC = () => {
             </div>
             <div className="bg-blue-50 border-l-4 border-blue-600 p-4">
               <p className="text-gray-700 leading-relaxed">
-                La société <strong>PAGAJOB SASU</strong> (ci-après "l'Organisateur"), exploitant le site thetirage.com, 
+                La société <strong>AM TECHNOLOGIES SR</strong> (ci-après "l'Organisateur"), exploitant le site thetirage.com, 
                 attache une grande importance à la protection des données personnelles de ses utilisateurs. 
                 La présente politique explique quelles données nous collectons, pourquoi, et comment elles 
                 sont utilisées et protégées.
