@@ -33,7 +33,7 @@ const StatsCounter: React.FC = () => {
 
         // Base de 147 participants + nouveaux participants (tickets)
         const baseParticipations = 147;
-        const newParticipants = tickets?.length || 5;
+        const newParticipants = tickets?.length || 8;
         const totalParticipations = baseParticipations + newParticipants;
         
         setParticipations(totalParticipations);
