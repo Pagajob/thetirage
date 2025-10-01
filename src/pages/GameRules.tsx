@@ -203,7 +203,7 @@ const GameRules: React.FC = () => {
           <section className="bg-gray-50 rounded-lg p-6">
             <h2 className="text-xl font-bold text-gray-900 mb-4">Contact</h2>
             <div className="space-y-2 text-gray-700">
-              <p><strong>Organisateur :</strong> PAGAJOB SASU</p>
+              <p><strong>Organisateur :</strong> AM TECHNOLOGIES SR</p>
               <p><strong>Site web :</strong> https://thetirage.com</p>
               <p><strong>Email :</strong> contact@thetirage.com</p>
             </div>
