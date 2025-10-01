@@ -55,9 +55,9 @@ const PrivacyPolicy: React.FC = () => {
             </div>
             <div className="bg-gray-50 rounded-lg p-6">
               <div className="space-y-2">
-                <p className="text-gray-700"><strong>PAGAJOB SASU</strong></p>
+                <p className="text-gray-700"><strong>AM TECHNOLOGIES SR</strong></p>
                 <p className="text-gray-700">Siège social : Strada Tudor Arghezi 26, Bucarest, Roumanie</p>
-                <p className="text-gray-700">Capital social : 1 000 €</p>
+                <p className="text-gray-700">Capital social : 100 000 €</p>
                 <p className="text-gray-700">
                   Email : <a href="mailto:contact@thetirage.com" className="text-blue-600 hover:underline">contact@thetirage.com</a>
                 </p>
